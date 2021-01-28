@@ -17,15 +17,6 @@ I. Bắt đầu
 #### - spatie/laravel-permission đang không hoạt động với jenssegers/mongodb
 #### - Sau khi cài đặt xong các package, cần làm theo hướng dẫn cài đặt của các package đó.
 
-- Load psr-4:
-```
-    "autoload-dev": {
-        "psr-4": {
-            "Abstraction\\": "Abstraction/"
-        }
-    },
-```
-
 - Sửa config/queues.php để có thể sử dụng DB transaction (Nếu dùng mongodb)
 
 `https://github.com/jenssegers/laravel-mongodb#queues`
@@ -42,7 +33,7 @@ I. Bắt đầu
     /*
      * Abstraction Service Providers...
      */
-    \Abstraction\Core\Providers\ARouteServiceProvider::class,
+    CuongDev\Larab\App\Providers\ARouteServiceProvider::class,
 ```
 
 - Thêm JWT middleware vào app/Http/Kernel.php
@@ -54,4 +45,4 @@ I. Bắt đầu
     ];
 ```
 
-- Model User extends \Abstraction\Core\Models\Defaults\User
+- Model User extends \CuongDev\Larab\App\Models\User

@@ -13,13 +13,13 @@
     },
     "autoload": {
         "psr-4": {
-            "CuognDev\\Larab\\": "src/"
+            "CuongDev\\Larab\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "CuognDev\\Larab\\LarabServiceProvider"
+                "CuongDev\\Larab\\LarabServiceProvider"
             ]
         }
     }
