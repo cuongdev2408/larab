@@ -23,7 +23,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "CuongDev\\Larab\\LarabServiceProvider"
+                "CuongDev\\Larab\\LarabServiceProvider",
+                "CuongDev\\Larab\\App\\Providers\\RouteServiceProvider"
             ]
         }
     }
