@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'auth'], function () {
+    Route::post('login-1', 'Api\AuthController@login')->name(DefineRoute::API_AUTH_LOGIN);
     Route::post('login', [AuthController::class, 'login'])->name(DefineRoute::API_AUTH_LOGIN);
 
     Route::group(['middleware' => 'auth.jwt'], function () {
