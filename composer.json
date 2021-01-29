@@ -1,5 +1,7 @@
 {
     "name": "cuongdev/larab",
+    "description": "CuongDev Laravel Abstraction for starter project",
+    "license": "MIT",
     "authors": [
         {
             "name": "CuongDev",
@@ -7,6 +9,8 @@
         }
     ],
     "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^8.12",
         "prettus/l5-repository": "^2.7",
         "tymon/jwt-auth": "^1.0",
         "spatie/laravel-permission": "^3.18"
