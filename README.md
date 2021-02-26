@@ -2,6 +2,10 @@
 #### CuongDev Laravel Abstraction for starter project
 #### Bộ source code dùng làm base cho các project Laravel
 
+```
+https://github.com/cuongdev2408/larab
+```
+
 I. Bắt đầu
 
 1. Cài đặt
@@ -12,6 +16,12 @@ I. Bắt đầu
     - prettus/l5-repository
     - tymon/jwt-auth
     - spatie/laravel-permission
+```
+
+- Package mongodb nếu cần:
+
+```
+    - jenssegers/mongodb
 ```
 
 #### Lưu ý:
@@ -43,7 +53,6 @@ I. Bắt đầu
      * Package Service Providers...
      */
     CuongDev\Larab\LarabServiceProvider::class,
-    CuongDev\Larab\App\Providers\RouteServiceProvider::class,
     Spatie\Permission\PermissionServiceProvider::class,
 ```
 
