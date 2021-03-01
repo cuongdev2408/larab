@@ -10,7 +10,13 @@ I. Bắt đầu
 
 1. Cài đặt
 
-- Các packages cần thiết:
+- Cài đặt packages chính:
+
+```
+    - cuongdev/larab
+```
+
+- Các packages cần thiết đi kèm bên trong gồm:
 
 ```
     - prettus/l5-repository
@@ -18,7 +24,7 @@ I. Bắt đầu
     - spatie/laravel-permission
 ```
 
-- Package mongodb nếu cần:
+- Cài thêm package mongodb nếu cần:
 
 ```
     - jenssegers/mongodb
@@ -86,4 +92,13 @@ JWT_ALGO=
 JWT_LEEWAY=
 JWT_BLACKLIST_ENABLED=
 JWT_BLACKLIST_GRACE_PERIOD=
+```
+
+- Chaỵ lệnh:
+
+```
+    php artisan jwt:secret
+    php artisan optimize
+    php artisan migrate
+    php artisan db:seed
 ```
