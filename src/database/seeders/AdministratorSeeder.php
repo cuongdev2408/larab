@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace CuongDev\Larab\Database\Seeders;
 
 use App\Models\User;
 use CuongDev\Larab\Abstraction\Definition\Constant;

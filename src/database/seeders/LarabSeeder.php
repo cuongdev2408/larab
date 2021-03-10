@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace CuongDev\Larab\Database\Seeders;
 
 use CuongDev\Larab\Abstraction\Definition\StatusCode;
 use CuongDev\Larab\App\Models\SystemOption;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace CuongDev\Larab\Database\Factories;
 
 use App\Models\User;
 use CuongDev\Larab\Abstraction\Definition\Constant;
