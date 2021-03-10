@@ -17,7 +17,9 @@
     },
     "autoload": {
         "psr-4": {
-            "CuongDev\\Larab\\": "./src/"
+            "CuongDev\\Larab\\": "./src/",
+            "CuongDev\\Larab\\Database\\Factories\\": "./src/database/factories/",
+            "CuongDev\\Larab\\Database\\Seeders\\": "./src/database/seeders/"
         }
     },
     "extra": {
