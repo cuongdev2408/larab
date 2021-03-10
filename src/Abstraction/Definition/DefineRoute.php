@@ -23,7 +23,7 @@ class DefineRoute
     const API_USER_UPDATE = 'api.user.update';
     const API_USER_DELETE = 'api.user.delete';
     const API_USER_SYNC_PERMISSIONS = 'api.user.sync_permissions';
-    const API_USER_ASSIGN_ROLES = 'api.user.assign_roles';
+    const API_USER_SYNC_ROLES = 'api.user.sync_roles';
 
     /**
      * Permission API

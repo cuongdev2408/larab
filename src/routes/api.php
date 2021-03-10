@@ -1,5 +1,6 @@
 <?php
 
+use CuongDev\Larab\Abstraction\Definition\DefineRole;
 use CuongDev\Larab\Abstraction\Definition\DefineRoute;
 use CuongDev\Larab\App\Http\Controllers\Api\ACL\PermissionController;
 use CuongDev\Larab\App\Http\Controllers\Api\ACL\RoleController;
@@ -29,7 +30,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         });
     });
 
-    Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::group(['middleware' => ['auth.jwt', 'role:' . DefineRole::SUPER_ADMINISTRATOR]], function () {
         /**
          * User
          */
@@ -41,7 +42,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
             Route::delete('/{id}', [UserController::class, 'delete'])->name(DefineRoute::API_USER_DELETE);
 
             Route::post('/sync-permissions', [UserController::class, 'syncPermissions'])->name(DefineRoute::API_USER_SYNC_PERMISSIONS);
-            Route::post('/assign-roles', [UserController::class, 'assignRoles'])->name(DefineRoute::API_USER_ASSIGN_ROLES);
+            Route::post('/sync-roles', [UserController::class, 'syncRoles'])->name(DefineRoute::API_USER_SYNC_ROLES);
         });
 
         /**
