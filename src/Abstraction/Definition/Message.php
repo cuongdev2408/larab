@@ -29,6 +29,6 @@ class Message
     /**
      * Http status message
      */
-    const HTTP_UNAUTHORIZED = 'Lỗi url không hợp lệ hoặc không tồn tại!';
+    const HTTP_UNAUTHORIZED = 'Lỗi truy cập không hợp lệ!';
     const HTTP_NOT_FOUND = 'Lỗi url không hợp lệ hoặc không tồn tại!';
 }
