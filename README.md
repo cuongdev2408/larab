@@ -43,6 +43,7 @@ I. Bắt đầu
 - Cấu hình JWT Auth
 
 `https://jwt-auth.readthedocs.io/en/develop/laravel-installation/`
+`https://jwt-auth.readthedocs.io/en/develop/quick-start/`
 
 - Cấu hình Spatie Laravel-permission
 
@@ -52,7 +53,7 @@ I. Bắt đầu
 
 `https://github.com/jenssegers/laravel-mongodb#queues`
 
-- Thêm các Provider cần thiết vào config/app.php
+- Thêm các Provider cần thiết vào `config/app.php`
 
 ```
     /*
@@ -71,13 +72,32 @@ I. Bắt đầu
     ];
 ```
 
+- Chỉnh sửa file `config/auth.php`:
+
+```
+'defaults' => [
+    'guard' => 'api',
+    'passwords' => 'users',
+],
+
+...
+
+'guards' => [
+    'api' => [
+        'driver' => 'jwt',
+        'provider' => 'users',
+    ],
+],
+```
+
 - Model User extends \CuongDev\Larab\App\Models\User
 
 
 - Thêm biến môi trường vào file .env:
 
 ```
-#Abstraction
+##### CuongDev Larab
+# Admin account
 SUPER_ADMIN_EMAIL=
 SUPER_ADMIN_PASSWORD=
 
@@ -97,8 +117,51 @@ JWT_BLACKLIST_GRACE_PERIOD=
 - Chaỵ lệnh:
 
 ```
+    php artisan key:generate
+    php artisan vendor:publish --provider "Prettus\Repository\Providers\RepositoryServiceProvider"
+    php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+    php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
     php artisan jwt:secret
+    
+    // Development
+    php artisan optimize:clear
+    // Production
     php artisan optimize
+    
     php artisan migrate
-    php artisan db:seed
+    php artisan db:seed --class=CuongDev\Larab\Database\Seeders\LarabSeeder
+```
+
+2. Cấu trúc
+- CuongDev Larab xây dựng sẵn 1 bộ Core để bạn dễ dàng thừa kế, giúp nhanh chóng xây dựng tính năng, thao tác với cơ sở dữ liệu dễ dàng hơn.
+
+```
+Core: 
+    - Controllers:
+        - AApiCrudController
+        - ABaseApiController
+    - Models:
+        - AAuthenticatableModel
+        - AModel
+        - AMongodbAuthenticatableModel
+        - AMongodbModel 
+    - Repositories:
+        - ABaseRepository
+    - Services:
+        - ABaseService   
+        
+Defination:
+    - Constant
+    - DefinePermission 
+    - DefineRole 
+    - DefineRoute 
+    - Message
+    - StatusCode 
+    
+Library:
+    - Helper
+    
+Object:
+    - ApiResponse
+    - Result
 ```

@@ -28,6 +28,10 @@ class User extends AAuthenticatableModel implements JWTSubject
         'name',
         'email',
         'password',
+        'phone',
+        'address',
+        'gender',
+        'status',
     ];
 
     /**
