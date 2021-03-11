@@ -94,11 +94,6 @@ class AuthController extends ABaseApiController
 
         $result = $this->userService->update($id, $data);
 
-        if ($result && $result->getStatus() == StatusCode::SUCCESS) {
-            Auth::setUser($result->getData());
-            return $this->respondWithToken(auth()->refresh(), 'Cập nhật thành công!');
-        }
-
         return $this->apiResponse->respond($result);
     }
 
