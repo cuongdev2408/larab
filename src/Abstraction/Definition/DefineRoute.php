@@ -13,6 +13,7 @@ class DefineRoute
     const API_AUTH_LOGOUT = 'api.auth.logout';
     const API_AUTH_REFRESH = 'api.auth.refresh';
     const API_AUTH_ME = 'api.auth.me';
+    const API_AUTH_UPDATE = 'api.auth.update';
 
     /**
      * User API

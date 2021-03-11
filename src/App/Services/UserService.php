@@ -6,10 +6,13 @@ namespace CuongDev\Larab\App\Services;
 
 use CuongDev\Larab\Abstraction\Core\Services\ABaseService;
 use CuongDev\Larab\Abstraction\Definition\Constant;
+use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Object\Result;
 use CuongDev\Larab\App\Repositories\ACL\PermissionRepository;
 use CuongDev\Larab\App\Repositories\ACL\RoleRepository;
 use CuongDev\Larab\App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class UserService extends ABaseService
 {
@@ -44,6 +47,30 @@ class UserService extends ABaseService
             'gender',
             'status',
         ]);
+    }
+
+    /**
+     * @param $id
+     * @param $data
+     * @return Result
+     */
+    public function update($id, $data): Result
+    {
+        try {
+            if (isset($data['password'])) {
+                $data['password'] = Hash::make($data['password']);
+            }
+
+            $object = $this->baseRepository->update($data, $id);
+
+            if ($object) {
+                return $this->result->successResult($object, Message::UPDATE_SUCCESS);
+            } else {
+                return $this->result->failureResult(null, Message::UPDATE_FAILURE);
+            }
+        } catch (ValidatorException $e) {
+            return $this->result->failureResult(null, Message::UPDATE_FAILURE . $e->getMessage());
+        }
     }
 
     /**
