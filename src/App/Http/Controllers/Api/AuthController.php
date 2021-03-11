@@ -10,6 +10,7 @@ use CuongDev\Larab\App\Models\User;
 use CuongDev\Larab\App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends ABaseApiController
 {
@@ -94,6 +95,7 @@ class AuthController extends ABaseApiController
         $result = $this->userService->update($id, $data);
 
         if ($result && $result->getStatus() == StatusCode::SUCCESS) {
+            Auth::user()->fresh();
             return $this->respondWithToken(auth()->refresh(), 'Cập nhật thành công!');
         }
 
