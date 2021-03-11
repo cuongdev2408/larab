@@ -6,19 +6,26 @@ use CuongDev\Larab\Abstraction\Core\Controllers\ABaseApiController;
 use CuongDev\Larab\Abstraction\Definition\Constant;
 use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Definition\StatusCode;
+use CuongDev\Larab\App\Models\User;
+use CuongDev\Larab\App\Services\UserService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends ABaseApiController
 {
+    /** @var UserService $userService */
+    protected $userService;
+
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
         parent::__construct();
         $this->middleware('auth:api', ['except' => ['login']]);
+        $this->userService = $userService;
     }
 
     /**
@@ -35,7 +42,7 @@ class AuthController extends ABaseApiController
             return $this->apiResponse->setHttpStatusCode(StatusCode::HTTP_UNAUTHORIZED)->failure(null, Message::HTTP_UNAUTHORIZED);
         }
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token, 'Đăng nhập thành công!');
     }
 
     /**
@@ -67,22 +74,45 @@ class AuthController extends ABaseApiController
      */
     public function refresh(): JsonResponse
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(auth()->refresh(), 'Tạo mới token thành công!');
+    }
+
+    /**
+     * Update profile and refresh a token
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Request $request): JsonResponse
+    {
+        $data = $request->all();
+
+        /** @var User $user */
+        $user = auth()->user();
+        $id = $user['id'];
+
+        $result = $this->userService->update($id, $request->all());
+
+        if ($result && $result->getStatus() == StatusCode::SUCCESS) {
+            return $this->respondWithToken(auth()->refresh(), 'Cập nhật thành công!');
+        }
+
+        return $this->apiResponse->respond($result);
     }
 
     /**
      * Get the token array structure.
      *
      * @param string $token
-     *
+     * @param null $message
      * @return JsonResponse
      */
-    protected function respondWithToken(string $token): JsonResponse
+    protected function respondWithToken(string $token, $message = null): JsonResponse
     {
         return $this->apiResponse->success([
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 60,
-        ], 'Đăng nhập thành công!');
+        ], $message);
     }
 }
