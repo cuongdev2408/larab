@@ -37,6 +37,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
          */
         Route::group(['prefix' => 'users'], function () {
             Route::get('/', [UserController::class, 'getList'])->name(DefineRoute::API_USER_LIST);
+            Route::get('/find-one', [UserController::class, 'findOne'])->name(DefineRoute::API_USER_FIND_ONE);
             Route::get('/{id}', [UserController::class, 'getOne'])->name(DefineRoute::API_USER_DETAIL);
             Route::post('/', [UserController::class, 'create'])->name(DefineRoute::API_USER_CREATE);
             Route::put('/{id}', [UserController::class, 'update'])->name(DefineRoute::API_USER_UPDATE);

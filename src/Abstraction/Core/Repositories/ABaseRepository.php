@@ -59,10 +59,12 @@ abstract class ABaseRepository extends BaseRepository
     public function getList($params = [])
     {
         /** @var Builder $model */
-        $model = $this->getModel()->where(function ($query) use ($params) {
-            /** @var Builder $query */
-            if (count($this->comparableFields) > 0) {
-                foreach ($this->comparableFields as $field) {
+        $model = $this->getModel();
+
+        if (count($this->getComparableFields()) > 0) {
+            $model = $model->where(function ($query) use ($params) {
+                /** @var Builder $query */
+                foreach ($this->getComparableFields() as $field) {
                     if (!isset($params[$field])) {
                         continue;
                     }
@@ -73,18 +75,18 @@ abstract class ABaseRepository extends BaseRepository
                         $query->where($field, $params[$field]);
                     }
                 }
-            }
-        });
+            });
+        }
 
         if (isset($params['with']) && is_array($params['with'])) {
             $model = $this->processEagerLoading($model, $params['with']);
         }
 
-        if (isset($params['keyword'])) {
+        if (isset($params['keyword']) && count($this->getSearchableFields()) > 0) {
             $model = $model->where(function ($query) use ($params) {
                 /** @var Builder $query */
-                foreach ($this->comparableFields as $field) {
-                    $query->orWhere($field, 'LIKE', '%' . $params[$field] . '%');
+                foreach ($this->getSearchableFields() as $field) {
+                    $query->orWhere($field, 'LIKE', '%' . $params['keyword'] . '%');
                 }
             });
         }
@@ -97,6 +99,10 @@ abstract class ABaseRepository extends BaseRepository
             foreach ($params['sort'] as $orderBy => $orderDirection) {
                 $model = $model->orderBy($orderBy, $orderDirection);
             }
+        }
+
+        if (isset($params['getOne']) && $params['getOne']) {
+            return $model->limit($params['limit'])->get()->first();
         }
 
         if (isset($params['getAll']) && $params['getAll']) {

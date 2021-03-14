@@ -19,6 +19,7 @@ class DefineRoute
      * User API
      */
     const API_USER_LIST = 'api.user.list';
+    const API_USER_FIND_ONE = 'api.user.find_one';
     const API_USER_DETAIL = 'api.user.detail';
     const API_USER_CREATE = 'api.user.create';
     const API_USER_UPDATE = 'api.user.update';

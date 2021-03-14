@@ -34,6 +34,18 @@ abstract class ABaseService
         return $this->result->successResult($data);
     }
 
+    public function findOne($params = []): Result
+    {
+        $params = $this->processParams($params);
+        $data = $this->baseRepository->getList($params);
+
+        if ($data) {
+            return $this->result->successResult($data);
+        }
+
+        return $this->result->failureResult($data);
+    }
+
     /**
      * @param $id
      * @return Result
@@ -134,6 +146,7 @@ abstract class ABaseService
         $processedParams = $params;
         $processedParams['limit'] = isset($params['limit']) ? intval($params['limit']) : Constant::DEFAULT_LIMIT;
         $processedParams['sort'] = isset($params['sort']) && is_array($params['sort']) ? $params['sort'] : [];
+
         if (isset($params['ids']) && !is_array($params['ids']) && is_string($params['ids'])) {
             $processedParams['ids'] = array_map('trim', explode(',', $params['ids']));
         }
@@ -143,6 +156,7 @@ abstract class ABaseService
         }
 
         $processedParams['getAll'] = isset($params['getAll']) ? $params['getAll'] : false;
+        $processedParams['getOne'] = isset($params['getOne']) ? $params['getOne'] : false;
 
         return $processedParams;
     }

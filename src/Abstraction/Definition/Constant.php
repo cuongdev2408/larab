@@ -13,11 +13,28 @@ class Constant
     const INACTIVE = 0;
     const ACTIVE = 1;
     const PENDING = 2;
-
-    const STATUS_ACTIVE = 'Hoạt động';
-    const STATUS_INACTIVE = 'Không hoạt động';
-    const STATUS_PENDING = 'Đang chờ';
+    const SUSPEND = 3;
 
     const MALE = 1;
     const FEMALE = 0;
+
+    public static $statusText = [
+        self::INACTIVE => 'Không hoạt động',
+        self::ACTIVE   => 'Hoạt động',
+        self::PENDING  => 'Đang chờ',
+        self::SUSPEND  => 'Tạm khoá',
+    ];
+
+    /**
+     * @param $status
+     * @return string
+     */
+    public static function getStatusText($status): string
+    {
+        if (!isset(self::$statusText[$status])) {
+            return self::$statusText[$status];
+        }
+
+        return 'Không xác định';
+    }
 }
