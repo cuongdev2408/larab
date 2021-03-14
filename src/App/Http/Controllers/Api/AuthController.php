@@ -10,7 +10,6 @@ use CuongDev\Larab\App\Models\User;
 use CuongDev\Larab\App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends ABaseApiController
 {
@@ -107,6 +106,7 @@ class AuthController extends ABaseApiController
     protected function respondWithToken(string $token, $message = null): JsonResponse
     {
         return $this->apiResponse->success([
+            'user'         => auth()->user(),
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 60,
