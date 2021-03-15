@@ -4,7 +4,6 @@
 namespace CuongDev\Larab\App\Services\ACL;
 
 
-
 use CuongDev\Larab\Abstraction\Core\Services\ABaseService;
 use CuongDev\Larab\App\Repositories\ACL\PermissionRepository;
 

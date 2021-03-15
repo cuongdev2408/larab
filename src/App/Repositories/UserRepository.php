@@ -8,6 +8,9 @@ use App\Models\User;
 use CuongDev\Larab\Abstraction\Core\Repositories\ABaseRepository;
 use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Object\Result;
+use Illuminate\Support\Collection;
+use Spatie\Permission\Contracts\Permission;
+use Spatie\Permission\Contracts\Role;
 
 class UserRepository extends ABaseRepository
 {
@@ -19,10 +22,10 @@ class UserRepository extends ABaseRepository
 
     /**
      * @param mixed $id user id
-     * @param array $roles list of role model
+     * @param array|Role|string $roles list of role model
      * @return Result
      */
-    public function syncRoles($id, array $roles): Result
+    public function syncRoles($id, $roles): Result
     {
         $res = new Result();
 
@@ -45,10 +48,10 @@ class UserRepository extends ABaseRepository
 
     /**
      * @param mixed $id user id
-     * @param array $permissions list of permission model
+     * @param string|array|Permission|Collection $permissions list of permission model
      * @return Result
      */
-    public function syncPermissions($id, array $permissions): Result
+    public function syncPermissions($id, $permissions): Result
     {
         $res = new Result();
 

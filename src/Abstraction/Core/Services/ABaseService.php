@@ -34,6 +34,10 @@ abstract class ABaseService
         return $this->result->successResult($data);
     }
 
+    /**
+     * @param array $params
+     * @return Result
+     */
     public function findOne($params = []): Result
     {
         $params = $this->processParams($params);
@@ -48,12 +52,15 @@ abstract class ABaseService
 
     /**
      * @param $id
+     * @param array $params
      * @return Result
      */
-    public function getOne($id): Result
+    public function getOne($id, $params = []): Result
     {
+        $params = $this->processParams($params);
+
         try {
-            $object = $this->baseRepository->find($id);
+            $object = $this->baseRepository->getOne($id, $params);
             if ($object) {
                 return $this->result->successResult($object, Message::FIND_SUCCESS);
             } else {

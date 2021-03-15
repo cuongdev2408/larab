@@ -8,6 +8,8 @@ use CuongDev\Larab\Abstraction\Core\Repositories\ABaseRepository;
 use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Object\Result;
 use Exception;
+use Illuminate\Support\Collection;
+use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleRepository extends ABaseRepository
@@ -52,10 +54,10 @@ class RoleRepository extends ABaseRepository
 
     /**
      * @param mixed $id role id
-     * @param array $permissions list of permission model
+     * @param string|array|Permission|Collection $permissions list of permission model
      * @return Result
      */
-    public function syncPermissions($id, array $permissions): Result
+    public function syncPermissions($id, $permissions): Result
     {
         $res = new Result();
 

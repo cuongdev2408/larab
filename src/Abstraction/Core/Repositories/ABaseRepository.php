@@ -3,7 +3,7 @@
 namespace CuongDev\Larab\Abstraction\Core\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -110,6 +110,24 @@ abstract class ABaseRepository extends BaseRepository
         }
 
         return $model->paginate($params['limit'], ['*'], isset($params['pageKey']) ? $params['pageKey'] : 'page');
+    }
+
+    /**
+     * @param $id
+     * @param array $params
+     * @return LengthAwarePaginator|Builder|Collection|mixed|null
+     */
+    public function getOne($id, $params = [])
+    {
+        /** @var Builder $model */
+        $model = $this->getModel();
+        $model = $model->where('id', $id);
+
+        if (isset($params['with']) && is_array($params['with'])) {
+            $model = $this->processEagerLoading($model, $params['with']);
+        }
+
+        return $model->firstOrFail();
     }
 
     /**

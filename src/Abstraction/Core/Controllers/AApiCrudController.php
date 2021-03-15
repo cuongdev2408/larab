@@ -46,11 +46,14 @@ abstract class AApiCrudController extends ABaseApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return JsonResponse
      */
-    protected function getOne($id): JsonResponse
+    protected function getOne($id, Request $request): JsonResponse
     {
-        $result = $this->baseService->getOne($id);
+        $params = $request->all();
+
+        $result = $this->baseService->getOne($id, $params);
 
         return $this->apiResponse->respond($result);
     }

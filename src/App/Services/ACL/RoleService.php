@@ -60,6 +60,6 @@ class RoleService extends ABaseService
             return $this->result->failureResult(null, 'Không tìm thấy các quyền hạn tương ứng.');
         }
 
-        return $this->baseRepository->syncPermissions($id, $permissions);
+        return $this->baseRepository->syncPermissions($id, $permissions->all());
     }
 }

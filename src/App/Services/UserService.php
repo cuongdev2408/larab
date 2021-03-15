@@ -90,7 +90,7 @@ class UserService extends ABaseService
             return $this->result->failureResult(null, 'Không tìm thấy các vai trò tương ứng.');
         }
 
-        return $this->baseRepository->syncRoles($id, $roles);
+        return $this->baseRepository->syncRoles($id, $roles->all());
     }
 
     /**
@@ -110,6 +110,6 @@ class UserService extends ABaseService
             return $this->result->failureResult(null, 'Không tìm thấy các quyền hạn tương ứng.');
         }
 
-        return $this->baseRepository->syncPermissions($id, $permissions);
+        return $this->baseRepository->syncPermissions($id, $permissions->all());
     }
 }
