@@ -36,9 +36,6 @@ abstract class AApiCrudController extends ABaseApiController
     protected function findOne(Request $request): JsonResponse
     {
         $params = $request->all();
-        $params['limit'] = 1;
-        $params['getOne'] = 1;
-
         $result = $this->baseService->findOne($params);
 
         return $this->apiResponse->respond($result);

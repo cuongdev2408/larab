@@ -29,9 +29,14 @@ abstract class ABaseService
     public function getList($params = []): Result
     {
         $params = $this->processParams($params);
-        $data = $this->baseRepository->getList($params);
 
-        return $this->result->successResult($data);
+        try {
+            $data = $this->baseRepository->getList($params);
+
+            return $this->result->successResult($data);
+        } catch (Exception $e) {
+            return $this->result->failureResult(null, Message::FIND_FAILURE . $e->getMessage());
+        }
     }
 
     /**
@@ -40,14 +45,21 @@ abstract class ABaseService
      */
     public function findOne($params = []): Result
     {
+        $params['limit'] = 1;
+        $params['getOne'] = 1;
         $params = $this->processParams($params);
-        $data = $this->baseRepository->getList($params);
 
-        if ($data) {
-            return $this->result->successResult($data);
+        try {
+            $data = $this->baseRepository->getList($params);
+
+            if ($data) {
+                return $this->result->successResult($data);
+            }
+
+            return $this->result->failureResult($data);
+        } catch (Exception $e) {
+            return $this->result->failureResult(null, Message::FIND_FAILURE . $e->getMessage());
         }
-
-        return $this->result->failureResult($data);
     }
 
     /**
@@ -72,12 +84,14 @@ abstract class ABaseService
     }
 
     /**
-     * @param $data
+     * @param array $data
      * @return Result
      */
-    public function create($data): Result
+    public function create(array $data): Result
     {
         try {
+            $data = $this->processDataBeforeSave($data);
+
             $object = $this->baseRepository->create($data);
 
             if ($object) {
@@ -92,12 +106,14 @@ abstract class ABaseService
 
     /**
      * @param $id
-     * @param $data
+     * @param array $data
      * @return Result
      */
-    public function update($id, $data): Result
+    public function update($id, array $data): Result
     {
         try {
+            $data = $this->processDataBeforeSave($data);
+
             $object = $this->baseRepository->update($data, $id);
 
             if ($object) {
@@ -166,5 +182,14 @@ abstract class ABaseService
         $processedParams['getOne'] = isset($params['getOne']) ? $params['getOne'] : false;
 
         return $processedParams;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function processDataBeforeSave($data = []): array
+    {
+        return $data;
     }
 }
