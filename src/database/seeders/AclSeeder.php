@@ -5,6 +5,7 @@ namespace CuongDev\Larab\Database\Seeders;
 use App\Models\User;
 use CuongDev\Larab\Abstraction\Definition\DefinePermission;
 use CuongDev\Larab\Abstraction\Definition\DefineRole;
+use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -16,14 +17,14 @@ class AclSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function run()
     {
         $tableNames = config('permission.table_names');
 
         if (empty($tableNames)) {
-            throw new \Exception('Error: config/permission.php not loaded. Run [php artisan config:clear] and try again.');
+            throw new Exception('Error: config/permission.php not loaded. Run [php artisan config:clear] and try again.');
         }
 
         // <editor-fold defaultstate="collapsed" desc="Delete ACL table">

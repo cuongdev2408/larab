@@ -54,7 +54,7 @@ abstract class ABaseRepository extends BaseRepository
 
     /**
      * @param array $params
-     * @return array|false[]|LengthAwarePaginator|\Illuminate\Database\Query\Builder[]|Collection|LazyCollection|Builder[]
+     * @return array|false[]|LengthAwarePaginator|Builder[]|Collection|LazyCollection|Builder[]
      */
     public function getList($params = [])
     {

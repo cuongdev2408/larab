@@ -15,17 +15,18 @@ class ApiResponse
     protected $headers = [];
 
     /**
-     * @return number
+     * @return int
      */
-    public function getHttpStatusCode()
+    public function getHttpStatusCode(): int
     {
         return $this->httpStatusCode;
     }
 
     /**
      * @param int $httpStatusCode
+     * @return ApiResponse
      */
-    public function setHttpStatusCode(int $httpStatusCode)
+    public function setHttpStatusCode(int $httpStatusCode): ApiResponse
     {
         $this->httpStatusCode = $httpStatusCode;
         return $this;
@@ -34,15 +35,16 @@ class ApiResponse
     /**
      * @return array
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
     /**
      * @param array $headers
+     * @return ApiResponse
      */
-    public function setHeaders(array $headers)
+    public function setHeaders(array $headers): ApiResponse
     {
         $this->headers = $headers;
         return $this;
@@ -59,7 +61,7 @@ class ApiResponse
      * @param array $headers
      * @return JsonResponse
      */
-    public function success($data = null, $message = Message::SUCCESS, $optional = null, $headers = [])
+    public function success($data = null, $message = Message::SUCCESS, $optional = null, $headers = []): JsonResponse
     {
         $result = new Result(StatusCode::SUCCESS, $data, $message, $optional);
 
@@ -73,9 +75,8 @@ class ApiResponse
      * @param array $headers
      * @return JsonResponse
      */
-    public function failure($data = null, $message = Message::FAILURE, $optional = null, $headers = [])
+    public function failure($data = null, $message = Message::FAILURE, $optional = null, $headers = []): JsonResponse
     {
-        /** @var Result $result */
         $result = new Result(StatusCode::FAILURE, $data, $message, $optional);
 
         return $this->respond($result, $headers);
@@ -86,7 +87,7 @@ class ApiResponse
      * @param array $headers
      * @return JsonResponse
      */
-    public function respond(Result $result, $headers = [])
+    public function respond(Result $result, $headers = []): JsonResponse
     {
         if (!empty($this->headers)) {
             $headers = array_merge($this->headers);

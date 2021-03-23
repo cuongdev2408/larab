@@ -2,9 +2,9 @@
 
 namespace CuongDev\Larab\Abstraction\Core\Controllers;
 
+use App\Http\Controllers\Controller;
 use CuongDev\Larab\Abstraction\__Trait\ApiTrait;
 use CuongDev\Larab\Abstraction\Object\ApiResponse;
-use App\Http\Controllers\Controller;
 
 abstract class ABaseApiController extends Controller
 {
