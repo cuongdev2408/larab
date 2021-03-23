@@ -24,17 +24,8 @@ class DefineRoute
     const API_USER_CREATE = 'api.user.create';
     const API_USER_UPDATE = 'api.user.update';
     const API_USER_DELETE = 'api.user.delete';
-    const API_USER_SYNC_PERMISSIONS = 'api.user.sync_permissions';
     const API_USER_SYNC_ROLES = 'api.user.sync_roles';
-
-    /**
-     * Permission API
-     */
-    const API_PERMISSION_LIST = 'api.permission.list';
-    const API_PERMISSION_DETAIL = 'api.permission.detail';
-    const API_PERMISSION_CREATE = 'api.permission.create';
-    const API_PERMISSION_UPDATE = 'api.permission.update';
-    const API_PERMISSION_DELETE = 'api.permission.delete';
+    const API_USER_SYNC_PERMISSIONS = 'api.user.sync_permissions';
 
     /**
      * Role API
@@ -45,4 +36,23 @@ class DefineRoute
     const API_ROLE_UPDATE = 'api.role.update';
     const API_ROLE_DELETE = 'api.role.delete';
     const API_ROLE_SYNC_PERMISSIONS = 'api.role.sync_permissions';
+
+    /**
+     * Permission API
+     */
+    const API_PERMISSION_LIST = 'api.permission.list';
+    const API_PERMISSION_DETAIL = 'api.permission.detail';
+    const API_PERMISSION_CREATE = 'api.permission.create';
+    const API_PERMISSION_UPDATE = 'api.permission.update';
+    const API_PERMISSION_DELETE = 'api.permission.delete';
+
+    public static $blacklist = [
+        self::API_ROLE_CREATE,
+        self::API_ROLE_UPDATE,
+        self::API_ROLE_DELETE,
+
+        self::API_PERMISSION_CREATE,
+        self::API_PERMISSION_UPDATE,
+        self::API_PERMISSION_DELETE,
+    ];
 }

@@ -3,9 +3,9 @@
 namespace CuongDev\Larab\Abstraction\Core\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\LazyCollection;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 abstract class ABaseRepository extends BaseRepository
@@ -54,7 +54,7 @@ abstract class ABaseRepository extends BaseRepository
 
     /**
      * @param array $params
-     * @return array|false[]|LengthAwarePaginator|Builder[]|Collection|LazyCollection|Builder[]
+     * @return LengthAwarePaginator|Builder|Builder[]|\Illuminate\Database\Eloquent\Collection|Model
      */
     public function getList($params = [])
     {
@@ -79,7 +79,7 @@ abstract class ABaseRepository extends BaseRepository
         }
 
         if (isset($params['with']) && is_array($params['with'])) {
-            $model = $this->processEagerLoading($model, $params['with']);
+            $model = $model->with($params['with']);
         }
 
         if (isset($params['keyword']) && count($this->getSearchableFields()) > 0) {
@@ -101,8 +101,10 @@ abstract class ABaseRepository extends BaseRepository
             }
         }
 
+        $model = $this->extendGetList($model, $params);
+
         if (isset($params['getOne']) && $params['getOne']) {
-            return $model->limit($params['limit'])->get()->first();
+            return $model->limit($params['limit'])->firstOrFail();
         }
 
         if (isset($params['getAll']) && $params['getAll']) {
@@ -110,6 +112,24 @@ abstract class ABaseRepository extends BaseRepository
         }
 
         return $model->paginate($params['limit'], ['*'], isset($params['pageKey']) ? $params['pageKey'] : 'page');
+    }
+
+    /**
+     * @param $id
+     * @param array $params
+     * @return LengthAwarePaginator|Builder|Collection|mixed|null
+     */
+    public function getOne($id, $params = [])
+    {
+        /** @var Builder $model */
+        $model = $this->getModel();
+        $model = $model->where('id', $id);
+
+        if (isset($params['with']) && is_array($params['with'])) {
+            $model = $model->with($params['with']);
+        }
+
+        return $model->firstOrFail();
     }
 
     /**
@@ -129,13 +149,11 @@ abstract class ABaseRepository extends BaseRepository
 
     /**
      * @param Builder $model
-     * @param array $with
+     * @param array $params
      * @return Builder
      */
-    protected function processEagerLoading(Builder $model, $with = []): Builder
+    protected function extendGetList(Builder $model, $params = []): Builder
     {
-        /** @var Builder $model */
-        $model = $model->with($with);
         return $model;
     }
 }

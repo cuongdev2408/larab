@@ -36,9 +36,6 @@ abstract class AApiCrudController extends ABaseApiController
     protected function findOne(Request $request): JsonResponse
     {
         $params = $request->all();
-        $params['limit'] = 1;
-        $params['getOne'] = 1;
-
         $result = $this->baseService->findOne($params);
 
         return $this->apiResponse->respond($result);
@@ -46,11 +43,14 @@ abstract class AApiCrudController extends ABaseApiController
 
     /**
      * @param $id
+     * @param Request $request
      * @return JsonResponse
      */
-    protected function getOne($id): JsonResponse
+    protected function getOne($id, Request $request): JsonResponse
     {
-        $result = $this->baseService->getOne($id);
+        $params = $request->all();
+
+        $result = $this->baseService->getOne($id, $params);
 
         return $this->apiResponse->respond($result);
     }
