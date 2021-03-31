@@ -15,6 +15,7 @@ class AddColumnIntoUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('username')->unique()->after('email_verified_at');
             $table->string('phone')->nullable()->after('remember_token');
             $table->text('address')->nullable()->after('phone');
             $table->tinyInteger('gender')->nullable()->default(Constant::MALE)->after('address');
@@ -31,7 +32,7 @@ class AddColumnIntoUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phone', 'address', 'gender', 'status']);
+            $table->dropColumn(['username', 'phone', 'address', 'gender', 'status']);
             $table->dropSoftDeletes();
         });
     }

@@ -16,6 +16,27 @@ class AuthController extends ABaseApiController
     /** @var UserService $userService */
     protected $userService;
 
+    protected $username;
+
+    public function findUsername()
+    {
+        if (request()->has('email')) {
+            $login = request()->input('email');
+        } else {
+            if (request()->has('username')) {
+                $login = request()->input('username');
+            } else {
+                $login = request()->input('account');
+            }
+        }
+
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        request()->merge([$fieldType => $login]);
+
+        return $fieldType;
+    }
+
     /**
      * Create a new AuthController instance.
      *
@@ -26,6 +47,7 @@ class AuthController extends ABaseApiController
         parent::__construct();
         $this->middleware('auth:api', ['except' => ['login']]);
         $this->userService = $userService;
+        $this->username = $this->findUsername();
     }
 
     /**
@@ -35,7 +57,7 @@ class AuthController extends ABaseApiController
      */
     public function login(): JsonResponse
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request([$this->username, 'password']);
         $credentials['status'] = Constant::ACTIVE;
 
         if (!$token = auth()->attempt($credentials)) {
