@@ -27,6 +27,7 @@ class User extends AAuthenticatableModel implements JWTSubject
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
         'phone',
         'address',
