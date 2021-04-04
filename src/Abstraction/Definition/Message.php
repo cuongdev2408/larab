@@ -31,4 +31,5 @@ class Message
      */
     const HTTP_UNAUTHORIZED = 'Lỗi truy cập không hợp lệ!';
     const HTTP_NOT_FOUND = 'Lỗi url không hợp lệ hoặc không tồn tại!';
+    const HTTP_TOKEN_EXPIRED = 'Phiên đăng nhập đã hết hạn!';
 }
