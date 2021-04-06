@@ -12,7 +12,6 @@ use CuongDev\Larab\App\Models\PermissionGroup;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Permission;
 
 class PermissionGroupRepository extends ABaseRepository
 {
@@ -37,7 +36,9 @@ class PermissionGroupRepository extends ABaseRepository
         if ($model) {
             DB::beginTransaction();
             try {
-                Permission::where('permission_group_id', $id)->update([
+                /** @var PermissionRepository $permissionRepository */
+                $permissionRepository = app(PermissionRepository::class);
+                $permissionRepository->getModel()->where('permission_group_id', $id)->update([
                     'permission_group_id' => DefinePermission::PERMISSION_GROUP_OTHER
                 ]);
 

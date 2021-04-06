@@ -26,6 +26,8 @@ class Message
     const DELETE_SUCCESS = 'Xoá thành công!';
     const DELETE_FAILURE = 'Xoá thất bại!';
 
+    const BLACKLIST_API = 'API này tạm khóa để nâng cấp tính năng!';
+
     /**
      * Http status message
      */

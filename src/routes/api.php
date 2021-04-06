@@ -3,6 +3,7 @@
 use CuongDev\Larab\Abstraction\Definition\DefineRole;
 use CuongDev\Larab\Abstraction\Definition\DefineRoute;
 use CuongDev\Larab\App\Http\Controllers\Api\ACL\PermissionController;
+use CuongDev\Larab\App\Http\Controllers\Api\ACL\PermissionGroupController;
 use CuongDev\Larab\App\Http\Controllers\Api\ACL\RoleController;
 use CuongDev\Larab\App\Http\Controllers\Api\AuthController;
 use CuongDev\Larab\App\Http\Controllers\Api\UserController;
@@ -77,6 +78,22 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
 
             Route::post('/sync-permissions', [RoleController::class, 'syncPermissions'])
                 ->name(DefineRoute::API_ROLE_SYNC_PERMISSIONS);
+        });
+
+        /**
+         * Permission Group
+         */
+        Route::group(['prefix' => 'permission-groups'], function () {
+            Route::get('/', [PermissionGroupController::class, 'getList'])
+                ->name(DefineRoute::API_PERMISSION_GROUP_LIST);
+            Route::get('/{id}', [PermissionGroupController::class, 'getOne'])
+                ->name(DefineRoute::API_PERMISSION_GROUP_DETAIL);
+            Route::post('/', [PermissionGroupController::class, 'create'])
+                ->name(DefineRoute::API_PERMISSION_GROUP_CREATE);
+            Route::put('/{id}', [PermissionGroupController::class, 'update'])
+                ->name(DefineRoute::API_PERMISSION_GROUP_UPDATE);
+            Route::delete('/{id}', [PermissionGroupController::class, 'delete'])
+                ->name(DefineRoute::API_PERMISSION_GROUP_DELETE);
         });
 
         /**

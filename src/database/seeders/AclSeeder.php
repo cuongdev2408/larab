@@ -70,7 +70,7 @@ class AclSeeder extends Seeder
         }
         // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="Permission">
+        // <editor-fold defaultstate="collapsed" desc="Permission Group">
         $permissionGroups = $this->definePermission->getPermissionGroups();
 
         $syncPermissionGroups = [];

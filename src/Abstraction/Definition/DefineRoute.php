@@ -38,6 +38,15 @@ class DefineRoute
     const API_ROLE_SYNC_PERMISSIONS = 'api.role.sync_permissions';
 
     /**
+     * Permission Group API
+     */
+    const API_PERMISSION_GROUP_LIST = 'api.permission_group.list';
+    const API_PERMISSION_GROUP_DETAIL = 'api.permission_group.detail';
+    const API_PERMISSION_GROUP_CREATE = 'api.permission_group.create';
+    const API_PERMISSION_GROUP_UPDATE = 'api.permission_group.update';
+    const API_PERMISSION_GROUP_DELETE = 'api.permission_group.delete';
+
+    /**
      * Permission API
      */
     const API_PERMISSION_LIST = 'api.permission.list';
@@ -46,13 +55,33 @@ class DefineRoute
     const API_PERMISSION_UPDATE = 'api.permission.update';
     const API_PERMISSION_DELETE = 'api.permission.delete';
 
-    public static $blacklist = [
+    private $blacklist = [
         self::API_ROLE_CREATE,
         self::API_ROLE_UPDATE,
         self::API_ROLE_DELETE,
+
+        self::API_PERMISSION_GROUP_CREATE,
+        self::API_PERMISSION_GROUP_UPDATE,
+        self::API_PERMISSION_GROUP_DELETE,
 
         self::API_PERMISSION_CREATE,
         self::API_PERMISSION_UPDATE,
         self::API_PERMISSION_DELETE,
     ];
+
+    /**
+     * @return string[]
+     */
+    public function getBlacklist(): array
+    {
+        return $this->blacklist;
+    }
+
+    /**
+     * @param string[] $blacklist
+     */
+    public function setBlacklist(array $blacklist): void
+    {
+        $this->blacklist = array_merge($this->blacklist, $blacklist);
+    }
 }
