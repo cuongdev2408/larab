@@ -62,4 +62,19 @@ class RoleService extends ABaseService
 
         return $this->baseRepository->syncPermissions($id, $permissions->all());
     }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    protected function extendProcessParams($params = []): array
+    {
+        $processedParams = [];
+
+        if (isset($params['permissions']) && !is_array($params['permissions']) && is_string($params['permissions'])) {
+            $processedParams['permissions'] = array_map('trim', explode(',', $params['permissions']));
+        }
+
+        return $processedParams;
+    }
 }

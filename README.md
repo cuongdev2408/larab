@@ -129,7 +129,7 @@ JWT_BLACKLIST_GRACE_PERIOD=
     php artisan optimize
     
     php artisan migrate
-    php artisan db:seed --class=CuongDev\Larab\Database\Seeders\LarabSeeder
+    php artisan db:seed --class=CuongDev\\Larab\\Database\\Seeders\\LarabSeeder
 ```
 
 2. Cấu trúc
@@ -164,4 +164,39 @@ Library:
 Object:
     - ApiResponse
     - Result
+```
+
+3. Cơ sở dữ liệu
+
+    a) Seeders
+
+- AclSeeder: File này được dùng để xây dựng hệ thống phân quyền. Ngoài những quyền mặc định được định nghĩa sẵn trong package, thì bạn có thể định nghĩa thêm các role, permission group, permission bằng cách tạo 1 seeder mới và extends AclSeeder
+   + Dữ liệu truyền vào là mảng dạng:
+
+```
+[
+   'key_name_1' => 'Display Name 1',
+   'key_name_2' => 'Display Name 2',
+]
+```
+
+
+```
+<?php
+
+namespace Database\Seeders;
+
+use CuongDev\Larab\Database\Seeders\AclSeeder;
+
+class CustomAclSeeder extends AclSeeder
+{
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->defineRole->setRoles([]);
+        $this->definePermission->setPermissionGroups([]);
+        $this->definePermission->setPermissions([]);
+    }
+}
 ```

@@ -5,38 +5,41 @@ namespace CuongDev\Larab\App\Repositories\ACL;
 
 
 use CuongDev\Larab\Abstraction\Core\Repositories\ABaseRepository;
+use CuongDev\Larab\Abstraction\Definition\DefinePermission;
 use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Object\Result;
+use CuongDev\Larab\App\Models\PermissionGroup;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Contracts\Permission;
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
-class RoleRepository extends ABaseRepository
+class PermissionGroupRepository extends ABaseRepository
 {
 
     function model(): string
     {
-        return Role::class;
+        return PermissionGroup::class;
     }
+
 
     /**
      * @param $id
      * @return Result
      */
-    public function deleteRole($id): Result
+    public function deletePermissionGroup($id): Result
     {
         $res = new Result();
 
-        /** @var Role $model */
+        /** @var PermissionGroup $model */
         $model = $this->model->find($id);
 
         if ($model) {
             DB::beginTransaction();
             try {
-                $model->syncPermissions([]);
+                Permission::where('permission_group_id', $id)->update([
+                    'permission_group_id' => DefinePermission::PERMISSION_GROUP_OTHER
+                ]);
 
                 $data = $model->delete();
 
@@ -53,32 +56,6 @@ class RoleRepository extends ABaseRepository
             }
         } else {
             $res = $res->failureResult(null, Message::NOT_FOUND);
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param mixed $id role id
-     * @param string|array|Permission|Collection $permissions list of permission model
-     * @return Result
-     */
-    public function syncPermissions($id, $permissions): Result
-    {
-        $res = new Result();
-
-        if ($id) {
-            /** @var Role $model */
-            $model = $this->model->find($id);
-
-            if ($model) {
-                $role = $model->syncPermissions($permissions);
-                $res = $res->successResult($role, 'Cấp quyền hạn cho vai trò thành công!');
-            } else {
-                $res = $res->failureResult(null, Message::NOT_FOUND);
-            }
-        } else {
-            $res = $res->failureResult(null, Message::MISSING_PARAMS);
         }
 
         return $res;

@@ -8,6 +8,7 @@ use App\Models\User;
 use CuongDev\Larab\Abstraction\Core\Repositories\ABaseRepository;
 use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Object\Result;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Contracts\Permission;
 use Spatie\Permission\Contracts\Role;
@@ -70,5 +71,27 @@ class UserRepository extends ABaseRepository
         }
 
         return $res;
+    }
+
+    /**
+     * @param Builder $model
+     * @param array $params
+     * @return Builder
+     */
+    protected function extendGetList(Builder $model, $params = []): Builder
+    {
+        if (isset($params['roles']) && is_array($params['roles'])) {
+            $model = $model->whereHas('roles', function ($query) use ($params) {
+                $query->whereIn('id', $params['roles']);
+            });
+        }
+
+        if (isset($params['permissions']) && is_array($params['permissions'])) {
+            $model = $model->whereHas('permissions', function ($query) use ($params) {
+                $query->whereIn('id', $params['permissions']);
+            });
+        }
+
+        return $model;
     }
 }

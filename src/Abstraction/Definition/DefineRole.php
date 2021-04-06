@@ -27,7 +27,7 @@ class DefineRole
      */
     public function setRoles(array $roles): void
     {
-        $this->roles = $roles;
+        $this->roles = array_merge($this->roles, $roles);
     }
 
 

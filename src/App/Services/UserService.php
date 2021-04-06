@@ -99,4 +99,22 @@ class UserService extends ABaseService
 
         return parent::processDataBeforeSave($data);
     }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    protected function extendProcessParams($params = []): array {
+        $processedParams = [];
+
+        if (isset($params['roles']) && !is_array($params['roles']) && is_string($params['roles'])) {
+            $processedParams['roles'] = array_map('trim', explode(',', $params['roles']));
+        }
+
+        if (isset($params['permissions']) && !is_array($params['permissions']) && is_string($params['permissions'])) {
+            $processedParams['permissions'] = array_map('trim', explode(',', $params['permissions']));
+        }
+
+        return $processedParams;
+    }
 }

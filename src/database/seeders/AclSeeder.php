@@ -5,6 +5,9 @@ namespace CuongDev\Larab\Database\Seeders;
 use App\Models\User;
 use CuongDev\Larab\Abstraction\Definition\DefinePermission;
 use CuongDev\Larab\Abstraction\Definition\DefineRole;
+use CuongDev\Larab\Abstraction\Definition\StatusCode;
+use CuongDev\Larab\App\Models\PermissionGroup;
+use CuongDev\Larab\App\Models\SystemOption;
 use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +16,18 @@ use Spatie\Permission\Models\Role;
 
 class AclSeeder extends Seeder
 {
+    /** @var DefineRole $defineRole */
+    protected $defineRole;
+
+    /** @var DefinePermission $definePermission */
+    protected $definePermission;
+
+    public function __construct()
+    {
+        $this->defineRole = new DefineRole();
+        $this->definePermission = new DefinePermission();
+    }
+
     /**
      * Run the database seeds.
      *
@@ -28,15 +43,20 @@ class AclSeeder extends Seeder
         }
 
         // <editor-fold defaultstate="collapsed" desc="Delete ACL table">
-        DB::table($tableNames['model_has_permissions'])->delete();
-        DB::table($tableNames['model_has_roles'])->delete();
-        DB::table($tableNames['role_has_permissions'])->delete();
-        DB::table($tableNames['roles'])->delete();
-        DB::table($tableNames['permissions'])->delete();
+        $checkRun = SystemOption::where('meta_key', 'init_administrator_and_acl_seeder')->first();
+        if (!$checkRun || $checkRun->meta_value != StatusCode::SUCCESS) {
+            DB::table($tableNames['model_has_permissions'])->delete();
+            DB::table($tableNames['model_has_roles'])->delete();
+            DB::table($tableNames['permission_group_has_permissions'])->delete();
+            DB::table($tableNames['role_has_permissions'])->delete();
+            DB::table($tableNames['roles'])->delete();
+            DB::table($tableNames['permissions'])->delete();
+            DB::table($tableNames['permission_groups'])->delete();
+        }
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Role">
-        $roles = (new DefineRole())->getRoles();
+        $roles = $this->defineRole->getRoles();
 
         foreach ($roles as $name => $displayName) {
             Role::updateOrCreate(
@@ -51,16 +71,47 @@ class AclSeeder extends Seeder
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="Permission">
-        $permissions = (new DefinePermission())->getPermissions();
+        $permissionGroups = $this->definePermission->getPermissionGroups();
 
-        $syncPermissions = [];
-        foreach ($permissions as $name => $displayName) {
-            $permission = Permission::updateOrCreate(
+        $syncPermissionGroups = [];
+        foreach ($permissionGroups as $name => $displayName) {
+            $permissionGroup = PermissionGroup::updateOrCreate(
                 [
                     'name' => $name,
                 ],
                 [
                     'display_name' => $displayName
+                ]
+            );
+
+            $syncPermissionGroups[$name] = $permissionGroup;
+        }
+        // </editor-fold>
+
+        // <editor-fold defaultstate="collapsed" desc="Permission">
+        $permissions = $this->definePermission->getPermissions();
+
+        $syncPermissions = [];
+        foreach ($permissions as $name => $displayName) {
+            $groupName = strtok($name, '__');
+
+            if ($groupName && isset($syncPermissionGroups[$groupName])) {
+                $permissionGroup = $syncPermissionGroups[$groupName];
+                $permissionGroupId = $permissionGroup['id'];
+            } elseif (isset($syncPermissionGroups[DefinePermission::PERMISSION_GROUP_OTHER])) {
+                $permissionGroup = $syncPermissionGroups[DefinePermission::PERMISSION_GROUP_OTHER];
+                $permissionGroupId = $permissionGroup['id'];
+            } else {
+                $permissionGroupId = null;
+            }
+
+            $permission = Permission::updateOrCreate(
+                [
+                    'name' => $name,
+                ],
+                [
+                    'display_name'        => $displayName,
+                    'permission_group_id' => $permissionGroupId,
                 ]
             );
 

@@ -27,6 +27,8 @@ class LarabSeeder extends Seeder
                 ['meta_key' => 'init_administrator_and_acl_seeder'],
                 ['meta_value' => StatusCode::SUCCESS]
             );
+        } else {
+            throw new \Exception('This seeder only run once time!');
         }
     }
 }
