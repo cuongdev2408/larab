@@ -149,26 +149,101 @@ Core:
         - ABaseRepository
     - Services:
         - ABaseService   
+ 
+Abstraction:       
+    Definition:
+        - Constant
+        - DefinePermission 
+        - DefineRole 
+        - DefineRoute 
+        - Message
+        - StatusCode 
         
-Defination:
-    - Constant
-    - DefinePermission 
-    - DefineRole 
-    - DefineRoute 
-    - Message
-    - StatusCode 
-    
-Library:
-    - Helper
-    
-Object:
-    - ApiResponse
-    - Result
+    Library:
+        - Helper
+        
+    Object:
+        - ApiResponse
+        - Result
 ```
 
-3. Cơ sở dữ liệu
+3. Kế thừa
 
-    a) Seeders
+    a) Abstraction
+
+- Tạo 1 thư mục Abstraction ở trong thư mục app của project
+
+```
+Abstraction:       
+    Definition:
+        - DefinePermission
+        - DefineRole
+        - DefineRoute
+
+    Library:
+        - Helper
+```
+
+- File app/Abstraction/DefinePermission
+
+```
+<?php
+
+namespace App\Abstraction\Definition;
+
+class DefinePermission extends \CuongDev\Larab\Abstraction\Definition\DefinePermission
+{
+    public function __construct()
+    {
+        $this->setPermissionGroups([
+
+        ]);
+
+        $this->setPermissions([
+
+        ]);
+    }
+}
+
+```
+
+- File app/Abstraction/DefineRole
+
+```
+<?php
+
+namespace App\Abstraction\Definition;
+
+class DefineRole extends \CuongDev\Larab\Abstraction\Definition\DefineRole
+{
+    public function __construct()
+    {
+        $this->setRoles([
+
+        ]);
+    }
+}
+```
+
+- File app/Abstraction/DefineRoute
+
+```
+<?php
+
+namespace App\Abstraction\Definition;
+
+class DefineRoute extends \CuongDev\Larab\Abstraction\Definition\DefineRoute
+{
+    public function __construct()
+    {
+        $this->setBlacklist([
+
+        ]);
+    }
+}
+```
+
+    b) Seeders
 
 - AclSeeder: File này được dùng để xây dựng hệ thống phân quyền. Ngoài những quyền mặc định được định nghĩa sẵn trong package, thì bạn có thể định nghĩa thêm các role, permission group, permission bằng cách tạo 1 seeder mới và extends AclSeeder
    + Dữ liệu truyền vào là mảng dạng:
@@ -186,6 +261,8 @@ Object:
 
 namespace Database\Seeders;
 
+use App\Abstraction\Definition\DefinePermission;
+use App\Abstraction\Definition\DefineRole;
 use CuongDev\Larab\Database\Seeders\AclSeeder;
 
 class CustomAclSeeder extends AclSeeder
@@ -193,10 +270,9 @@ class CustomAclSeeder extends AclSeeder
     public function __construct()
     {
         parent::__construct();
-
-        $this->defineRole->setRoles([]);
-        $this->definePermission->setPermissionGroups([]);
-        $this->definePermission->setPermissions([]);
+        $this->defineRole->setRoles((new DefineRole())->getRoles());
+        $this->definePermission->setPermissionGroups((new DefinePermission())->getPermissionGroups());
+        $this->definePermission->setPermissions((new DefinePermission())->getPermissions());
     }
 }
 ```
