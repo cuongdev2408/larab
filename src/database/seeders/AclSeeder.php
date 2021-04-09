@@ -47,7 +47,6 @@ class AclSeeder extends Seeder
         if (!$checkRun || $checkRun->meta_value != StatusCode::SUCCESS) {
             DB::table($tableNames['model_has_permissions'])->delete();
             DB::table($tableNames['model_has_roles'])->delete();
-            DB::table($tableNames['permission_group_has_permissions'])->delete();
             DB::table($tableNames['role_has_permissions'])->delete();
             DB::table($tableNames['roles'])->delete();
             DB::table($tableNames['permissions'])->delete();
