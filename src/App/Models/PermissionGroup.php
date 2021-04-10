@@ -26,6 +26,6 @@ class PermissionGroup extends AModel
      */
     public function permissions(): HasMany
     {
-        return $this->hasMany(config('permission.models.permission'), 'permission_id', 'id');
+        return $this->hasMany(config('permission.models.permission'), 'permission_group_id', 'id');
     }
 }
