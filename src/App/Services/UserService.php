@@ -56,7 +56,7 @@ class UserService extends ABaseService
     {
         $roles = $this->roleRepository->getList([
             'limit'  => Constant::MAX_LIMIT,
-            'getAll' => true,
+            'get_all' => true,
             'ids'    => $roleIds,
         ]);
 
@@ -76,7 +76,7 @@ class UserService extends ABaseService
     {
         $permissions = $this->permissionRepository->getList([
             'limit'  => Constant::MAX_LIMIT,
-            'getAll' => true,
+            'get_all' => true,
             'ids'    => $permissionIds,
         ]);
 
@@ -91,7 +91,7 @@ class UserService extends ABaseService
      * @param array $data
      * @return array
      */
-    protected function processDataBeforeSave($data = []): array
+    protected function processDataBeforeSave(array $data = []): array
     {
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
@@ -104,7 +104,8 @@ class UserService extends ABaseService
      * @param array $params
      * @return array
      */
-    protected function extendProcessParams($params = []): array {
+    protected function extendProcessParams(array $params = []): array
+    {
         $processedParams = [];
 
         if (isset($params['roles']) && !is_array($params['roles']) && is_string($params['roles'])) {

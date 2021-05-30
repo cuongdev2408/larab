@@ -56,7 +56,7 @@ abstract class ABaseRepository extends BaseRepository
      * @param array $params
      * @return LengthAwarePaginator|Builder|Builder[]|\Illuminate\Database\Eloquent\Collection|Model
      */
-    public function getList($params = [])
+    public function getList(array $params = [])
     {
         /** @var Builder $model */
         $model = $this->getModel();
@@ -103,15 +103,15 @@ abstract class ABaseRepository extends BaseRepository
 
         $model = $this->extendGetList($model, $params);
 
-        if (isset($params['getOne']) && $params['getOne']) {
+        if (isset($params['get_one']) && $params['get_one']) {
             return $model->limit($params['limit'])->firstOrFail();
         }
 
-        if (isset($params['getAll']) && $params['getAll']) {
+        if (isset($params['get_all']) && $params['get_all']) {
             return $model->limit($params['limit'])->get();
         }
 
-        return $model->paginate($params['limit'], ['*'], isset($params['pageKey']) ? $params['pageKey'] : 'page');
+        return $model->paginate($params['limit'], ['*'], $params['page_key'] ?? 'page');
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class ABaseRepository extends BaseRepository
      * @param array $params
      * @return LengthAwarePaginator|Builder|Collection|mixed|null
      */
-    public function getOne($id, $params = [])
+    public function getOne($id, array $params = [])
     {
         /** @var Builder $model */
         $model = $this->getModel();
@@ -136,7 +136,7 @@ abstract class ABaseRepository extends BaseRepository
      * @param array $params
      * @return array
      */
-    public function deleteMulti($params = []): array
+    public function deleteMulti(array $params = []): array
     {
         $res = [
             'deleted'     => [],
@@ -152,7 +152,7 @@ abstract class ABaseRepository extends BaseRepository
      * @param array $params
      * @return Builder
      */
-    protected function extendGetList(Builder $model, $params = []): Builder
+    protected function extendGetList(Builder $model, array $params = []): Builder
     {
         return $model;
     }

@@ -42,7 +42,7 @@ class PermissionGroupService extends ABaseService
      * @param array $params
      * @return array
      */
-    protected function extendProcessParams($params = []): array
+    protected function extendProcessParams(array $params = []): array
     {
         $processedParams = [];
 

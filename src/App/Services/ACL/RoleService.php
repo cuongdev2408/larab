@@ -52,7 +52,7 @@ class RoleService extends ABaseService
     {
         $permissions = $this->permissionRepository->getList([
             'limit'  => Constant::MAX_LIMIT,
-            'getAll' => true,
+            'get_all' => true,
             'ids'    => $permissionIds,
         ]);
 
@@ -67,7 +67,7 @@ class RoleService extends ABaseService
      * @param array $params
      * @return array
      */
-    protected function extendProcessParams($params = []): array
+    protected function extendProcessParams(array $params = []): array
     {
         $processedParams = [];
 

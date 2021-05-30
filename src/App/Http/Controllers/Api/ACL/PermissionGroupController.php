@@ -3,7 +3,7 @@
 namespace CuongDev\Larab\App\Http\Controllers\Api\ACL;
 
 use CuongDev\Larab\Abstraction\Core\Controllers\AApiCrudController;
-use CuongDev\Larab\App\Services\ACL\PermissionGroupService ;
+use CuongDev\Larab\App\Services\ACL\PermissionGroupService;
 
 class PermissionGroupController extends AApiCrudController
 {

@@ -1,5 +1,7 @@
 # CuongDev Laravel Abstraction
+
 #### CuongDev Laravel Abstraction for starter project
+
 #### Bộ source code dùng làm base cho các project Laravel
 
 ```
@@ -133,6 +135,7 @@ JWT_BLACKLIST_GRACE_PERIOD=
 ```
 
 2. Cấu trúc
+
 - CuongDev Larab xây dựng sẵn 1 bộ Core để bạn dễ dàng thừa kế, giúp nhanh chóng xây dựng tính năng, thao tác với cơ sở dữ liệu dễ dàng hơn.
 
 ```
@@ -169,7 +172,7 @@ Abstraction:
 
 3. Kế thừa
 
-    a) Abstraction
+   a) Abstraction
 
 - Tạo 1 thư mục Abstraction ở trong thư mục app của project
 
@@ -246,7 +249,7 @@ class DefineRoute extends \CuongDev\Larab\Abstraction\Definition\DefineRoute
     b) Seeders
 
 - AclSeeder: File này được dùng để xây dựng hệ thống phân quyền. Ngoài những quyền mặc định được định nghĩa sẵn trong package, thì bạn có thể định nghĩa thêm các role, permission group, permission bằng cách tạo 1 seeder mới và extends AclSeeder
-   + Dữ liệu truyền vào là mảng dạng:
+    + Dữ liệu truyền vào là mảng dạng:
 
 ```
 [
@@ -254,7 +257,6 @@ class DefineRoute extends \CuongDev\Larab\Abstraction\Definition\DefineRoute
    'key_name_2' => 'Display Name 2',
 ]
 ```
-
 
 ```
 <?php

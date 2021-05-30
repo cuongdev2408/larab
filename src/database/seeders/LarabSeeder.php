@@ -4,6 +4,7 @@ namespace CuongDev\Larab\Database\Seeders;
 
 use CuongDev\Larab\Abstraction\Definition\StatusCode;
 use CuongDev\Larab\App\Models\SystemOption;
+use Exception;
 use Illuminate\Database\Seeder;
 
 class LarabSeeder extends Seeder
@@ -28,7 +29,7 @@ class LarabSeeder extends Seeder
                 ['meta_value' => StatusCode::SUCCESS]
             );
         } else {
-            throw new \Exception('This seeder only run once time!');
+            throw new Exception('This seeder only run once time!');
         }
     }
 }

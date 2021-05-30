@@ -8,6 +8,7 @@ use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Definition\StatusCode;
 use CuongDev\Larab\App\Models\User;
 use CuongDev\Larab\App\Services\UserService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,10 @@ class AuthController extends ABaseApiController
 
     protected $username;
 
-    public function findUsername()
+    /**
+     * @return string
+     */
+    public function findUsername(): string
     {
         if (request()->has('email')) {
             $login = request()->input('email');
@@ -41,6 +45,7 @@ class AuthController extends ABaseApiController
      * Create a new AuthController instance.
      *
      * @return void
+     * @throws Exception
      */
     public function __construct(UserService $userService)
     {

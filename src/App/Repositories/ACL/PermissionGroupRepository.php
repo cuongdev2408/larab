@@ -67,7 +67,7 @@ class PermissionGroupRepository extends ABaseRepository
      * @param array $params
      * @return Builder
      */
-    protected function extendGetList(Builder $model, $params = []): Builder
+    protected function extendGetList(Builder $model, array $params = []): Builder
     {
         if (isset($params['permissions']) && is_array($params['permissions'])) {
             $model = $model->whereHas('permissions', function ($query) use ($params) {

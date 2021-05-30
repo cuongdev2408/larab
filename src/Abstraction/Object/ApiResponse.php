@@ -61,7 +61,7 @@ class ApiResponse
      * @param array $headers
      * @return JsonResponse
      */
-    public function success($data = null, $message = Message::SUCCESS, $optional = null, $headers = []): JsonResponse
+    public function success($data = null, string $message = Message::SUCCESS, $optional = null, array $headers = []): JsonResponse
     {
         $result = new Result(StatusCode::SUCCESS, $data, $message, $optional);
 
@@ -75,7 +75,7 @@ class ApiResponse
      * @param array $headers
      * @return JsonResponse
      */
-    public function failure($data = null, $message = Message::FAILURE, $optional = null, $headers = []): JsonResponse
+    public function failure($data = null, string $message = Message::FAILURE, $optional = null, array $headers = []): JsonResponse
     {
         $result = new Result(StatusCode::FAILURE, $data, $message, $optional);
 
@@ -87,7 +87,7 @@ class ApiResponse
      * @param array $headers
      * @return JsonResponse
      */
-    public function respond(Result $result, $headers = []): JsonResponse
+    public function respond(Result $result, array $headers = []): JsonResponse
     {
         if (!empty($this->headers)) {
             $headers = array_merge($this->headers);

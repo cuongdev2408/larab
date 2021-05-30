@@ -28,7 +28,7 @@ class Result
     }
 
     /**
-     * @param number $status
+     * @param int $status
      */
     public function setStatus(int $status)
     {
@@ -54,7 +54,7 @@ class Result
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
@@ -90,7 +90,7 @@ class Result
      * @param string $message Default message is failure message
      * @param mixed $optional
      */
-    public function __construct($status = StatusCode::FAILURE, $data = null, $message = Message::FAILURE, $optional = null)
+    public function __construct(int $status = StatusCode::FAILURE, $data = null, string $message = Message::FAILURE, $optional = null)
     {
         $this->setStatus($status);
         $this->setData($data);
@@ -104,7 +104,7 @@ class Result
      * @param mixed $optional
      * @return $this
      */
-    public function successResult($data, $message = Message::SUCCESS, $optional = null): Result
+    public function successResult($data, string $message = Message::SUCCESS, $optional = null): Result
     {
         return $this->getResult(StatusCode::SUCCESS, $data, $message, $optional);
     }
@@ -115,7 +115,7 @@ class Result
      * @param mixed $optional
      * @return $this
      */
-    public function failureResult($data, $message = Message::FAILURE, $optional = null): Result
+    public function failureResult($data, string $message = Message::FAILURE, $optional = null): Result
     {
         return $this->getResult(StatusCode::FAILURE, $data, $message, $optional);
     }
@@ -127,7 +127,7 @@ class Result
      * @param mixed $optional
      * @return $this
      */
-    public function getResult($status, $data = null, $message = '', $optional = null): Result
+    public function getResult(int $status, $data = null, string $message = '', $optional = null): Result
     {
         $this->setStatus($status);
         $this->setData($data);

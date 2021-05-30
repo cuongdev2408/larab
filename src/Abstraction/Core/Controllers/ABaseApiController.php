@@ -16,6 +16,9 @@ abstract class ABaseApiController extends Controller
 
     protected $apiResponse;
 
+    /**
+     * @throws Exception
+     */
     public function __construct()
     {
         $this->apiResponse = new ApiResponse();
@@ -23,6 +26,9 @@ abstract class ABaseApiController extends Controller
         $this->checkBlacklistRoute((new DefineRoute())->getBlacklist());
     }
 
+    /**
+     * @throws Exception
+     */
     protected function checkBlacklistRoute($blacklist = [])
     {
         if (Route::is($blacklist)) {

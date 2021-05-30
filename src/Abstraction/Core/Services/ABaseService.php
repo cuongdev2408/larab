@@ -26,7 +26,7 @@ abstract class ABaseService
      * @param array $params
      * @return Result
      */
-    public function getList($params = []): Result
+    public function getList(array $params = []): Result
     {
         $params = $this->processParams($params);
 
@@ -43,10 +43,10 @@ abstract class ABaseService
      * @param array $params
      * @return Result
      */
-    public function findOne($params = []): Result
+    public function findOne(array $params = []): Result
     {
         $params['limit'] = 1;
-        $params['getOne'] = 1;
+        $params['get_one'] = 1;
         $params = $this->processParams($params);
 
         try {
@@ -67,7 +67,7 @@ abstract class ABaseService
      * @param array $params
      * @return Result
      */
-    public function getOne($id, $params = []): Result
+    public function getOne($id, array $params = []): Result
     {
         $params = $this->processParams($params);
 
@@ -142,10 +142,10 @@ abstract class ABaseService
     }
 
     /**
-     * @param $params
+     * @param array $params
      * @return Result
      */
-    public function deleteMulti($params = []): Result
+    public function deleteMulti(array $params = []): Result
     {
         if (empty($params)) {
             return $this->result->failureResult(null, Message::MISSING_PARAMS);
@@ -164,7 +164,7 @@ abstract class ABaseService
      * @param array $params
      * @return array
      */
-    protected function processParams($params = []): array
+    protected function processParams(array $params = []): array
     {
         $processedParams = $params;
         $processedParams['limit'] = isset($params['limit']) ? intval($params['limit']) : Constant::DEFAULT_LIMIT;
@@ -178,8 +178,8 @@ abstract class ABaseService
             $processedParams['with'] = array_map('trim', explode(',', $params['with']));
         }
 
-        $processedParams['getAll'] = isset($params['getAll']) ? $params['getAll'] : false;
-        $processedParams['getOne'] = isset($params['getOne']) ? $params['getOne'] : false;
+        $processedParams['get_all'] = $params['get_all'] ?? false;
+        $processedParams['get_one'] = $params['get_one'] ?? false;
 
         $processedParams = array_merge($processedParams, $this->extendProcessParams($params));
 
@@ -190,7 +190,7 @@ abstract class ABaseService
      * @param array $params
      * @return array
      */
-    protected function extendProcessParams($params = []): array
+    protected function extendProcessParams(array $params = []): array
     {
         $processedParams = [];
 
@@ -201,7 +201,7 @@ abstract class ABaseService
      * @param array $data
      * @return array
      */
-    protected function processDataBeforeSave($data = []): array
+    protected function processDataBeforeSave(array $data = []): array
     {
         return $data;
     }

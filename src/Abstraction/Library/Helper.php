@@ -11,7 +11,7 @@ class Helper
      * @param array $config Default is config for VNĐ (Việt Nam Đồng)
      * @return string
      */
-    public function moneyFormat($number, $config = [])
+    public function moneyFormat($number, array $config = [])
     {
         $moneyConfig = [
             'currency'            => 'đ',
@@ -23,13 +23,13 @@ class Helper
             'thousands_separator' => '.',
         ];
 
-        $moneyConfig['currency'] = isset($config['currency']) ? $config['currency'] : 'đ';
-        $moneyConfig['position'] = isset($config['position']) ? $config['position'] : 'right';
-        $moneyConfig['has_space'] = isset($config['has_space']) ? $config['has_space'] : false;
+        $moneyConfig['currency'] = $config['currency'] ?? 'đ';
+        $moneyConfig['position'] = $config['position'] ?? 'right';
+        $moneyConfig['has_space'] = $config['has_space'] ?? false;
         $moneyConfig['space'] = $moneyConfig['has_space'] ? ' ' : '';
-        $moneyConfig['decimal'] = isset($config['decimal']) ? $config['decimal'] : 0;
-        $moneyConfig['decimal_separator'] = isset($config['decimal_separator']) ? $config['decimal_separator'] : ',';
-        $moneyConfig['thousands_separator'] = isset($config['thousands_separator']) ? $config['thousands_separator'] : '.';
+        $moneyConfig['decimal'] = $config['decimal'] ?? 0;
+        $moneyConfig['decimal_separator'] = $config['decimal_separator'] ?? ',';
+        $moneyConfig['thousands_separator'] = $config['thousands_separator'] ?? '.';
 
         $formattedNumber = number_format(
             floatval($number),
