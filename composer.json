@@ -25,7 +25,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "CuongDev\\Larab\\LarabServiceProvider"
+                "CuongDev\\Larab\\LarabServiceProvider",
+                "Spatie\\Permission\\PermissionServiceProvider"
             ]
         }
     }
