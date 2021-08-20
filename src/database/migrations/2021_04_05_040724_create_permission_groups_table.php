@@ -28,6 +28,13 @@ class CreatePermissionGroupsTable extends Migration
 
         Schema::table($tableNames['permissions'], function (Blueprint $table) {
             $table->unsignedBigInteger('permission_group_id')->nullable()->after('guard_name');
+
+            $table->foreign('permission_group_id')
+                ->references('id')
+                ->on('permission_groups')
+                ->onDelete('cascade');
+
+            $table->primary(['permission_group_id'], 'permissions_permission_group_id_primary');
         });
     }
 
