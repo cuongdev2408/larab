@@ -33,8 +33,6 @@ class CreatePermissionGroupsTable extends Migration
                 ->references('id')
                 ->on('permission_groups')
                 ->onDelete('cascade');
-
-            $table->primary(['permission_group_id'], 'permissions_permission_group_id_primary');
         });
     }
 
