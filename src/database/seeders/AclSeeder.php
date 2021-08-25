@@ -125,7 +125,7 @@ class AclSeeder extends Seeder
         }
 
         // Assign Super Administrator role and direct permissions to super admin user
-        $email = env('SUPER_ADMIN_EMAIL', 'cuongnv.developer@gmail.com');
+        $email = env('SUPER_ADMIN_EMAIL', 'admin@gmail.com');
         /** @var User $user */
         $user = User::where('email', $email)->first();
         if ($user) {

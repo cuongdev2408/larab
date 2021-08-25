@@ -17,26 +17,24 @@ class AdministratorSeeder extends Seeder
      */
     public function run()
     {
-        $email = env('SUPER_ADMIN_EMAIL', 'cuongnv.developer@gmail.com');
-        $password = env('SUPER_ADMIN_PASSWORD', '12345678');
+        $email = env('SUPER_ADMIN_EMAIL', 'admin@gmail.com');
+        $password = env('SUPER_ADMIN_PASSWORD', '123456');
 
         /** @var User $user */
         $user = User::where('email', $email)->first();
         if (!$user) {
             User::create([
-                'name'              => 'Nguyễn Vinh Cường',
+                'name'              => 'Admin',
                 'email'             => $email,
                 'email_verified_at' => now(),
                 'username'          => $email,
                 'password'          => Hash::make($password),
                 'remember_token'    => Str::random(10),
-                'phone'             => '+84353437303',
+                'phone'             => '+84987654321',
                 'address'           => 'Hà Nội',
                 'gender'            => Constant::MALE,
                 'status'            => Constant::ACTIVE,
             ]);
         }
-
-        User::factory(10)->create();
     }
 }

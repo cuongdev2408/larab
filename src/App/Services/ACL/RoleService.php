@@ -51,9 +51,9 @@ class RoleService extends ABaseService
     public function syncPermissions($id, $permissionIds): Result
     {
         $permissions = $this->permissionRepository->getList([
-            'limit'  => Constant::MAX_LIMIT,
+            'limit'   => Constant::MAX_LIMIT,
             'get_all' => true,
-            'ids'    => $permissionIds,
+            'ids'     => $permissionIds,
         ]);
 
         if ($permissions->isEmpty()) {

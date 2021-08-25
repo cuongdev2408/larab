@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev\Larab\App\Http\Controllers'], function () {
+    /**
+     * Authentication
+     */
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AuthController::class, 'login'])
             ->name(DefineRoute::API_AUTH_LOGIN);
@@ -37,7 +40,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         });
     });
 
-    Route::group(['middleware' => ['auth.jwt', 'role:' . DefineRole::SUPER_ADMINISTRATOR]], function () {
+    /**
+     * ACL
+     */
+    Route::group(['middleware' => ['auth.jwt', 'role:' . DefineRole::SUPER_ADMINISTRATOR . '|' . DefineRole::ADMINISTRATOR]], function () {
         /**
          * User
          */

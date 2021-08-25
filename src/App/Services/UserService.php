@@ -32,6 +32,7 @@ class UserService extends ABaseService
 
         $this->baseRepository->setComparableFields([
             'email',
+            'username',
             'phone',
             'gender',
             'status',
@@ -40,6 +41,7 @@ class UserService extends ABaseService
         $this->baseRepository->setSearchableFields([
             'name',
             'email',
+            'username',
             'phone',
             'address',
             'gender',
@@ -55,9 +57,9 @@ class UserService extends ABaseService
     public function syncRoles($id, $roleIds): Result
     {
         $roles = $this->roleRepository->getList([
-            'limit'  => Constant::MAX_LIMIT,
+            'limit'   => Constant::MAX_LIMIT,
             'get_all' => true,
-            'ids'    => $roleIds,
+            'ids'     => $roleIds,
         ]);
 
         if ($roles->isEmpty()) {
@@ -75,9 +77,9 @@ class UserService extends ABaseService
     public function syncPermissions($id, $permissionIds): Result
     {
         $permissions = $this->permissionRepository->getList([
-            'limit'  => Constant::MAX_LIMIT,
+            'limit'   => Constant::MAX_LIMIT,
             'get_all' => true,
-            'ids'    => $permissionIds,
+            'ids'     => $permissionIds,
         ]);
 
         if ($permissions->isEmpty()) {
