@@ -1,6 +1,7 @@
 {
     "name": "cuongdev/larab",
     "description": "CuongDev Laravel Abstraction for starter project",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
@@ -8,6 +9,7 @@
             "email": "cuongnv.developer@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.3|^8.0",
         "laravel/framework": "^8.12",
