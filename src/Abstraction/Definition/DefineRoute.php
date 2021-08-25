@@ -55,6 +55,15 @@ class DefineRoute
     const API_PERMISSION_UPDATE = 'api.permission.update';
     const API_PERMISSION_DELETE = 'api.permission.delete';
 
+    /**
+     * System Option API
+     */
+    const API_SYSTEM_OPTION_LIST = 'api.system_option.list';
+    const API_SYSTEM_OPTION_DETAIL = 'api.system_option.detail';
+    const API_SYSTEM_OPTION_CREATE = 'api.system_option.create';
+    const API_SYSTEM_OPTION_UPDATE = 'api.system_option.update';
+    const API_SYSTEM_OPTION_DELETE = 'api.system_option.delete';
+
     private $blacklist = [
         self::API_ROLE_CREATE,
         self::API_ROLE_UPDATE,
@@ -67,6 +76,10 @@ class DefineRoute
         self::API_PERMISSION_CREATE,
         self::API_PERMISSION_UPDATE,
         self::API_PERMISSION_DELETE,
+
+        self::API_SYSTEM_OPTION_CREATE,
+        self::API_SYSTEM_OPTION_UPDATE,
+        self::API_SYSTEM_OPTION_DELETE,
     ];
 
     /**

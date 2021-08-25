@@ -6,6 +6,7 @@ use CuongDev\Larab\App\Http\Controllers\Api\ACL\PermissionController;
 use CuongDev\Larab\App\Http\Controllers\Api\ACL\PermissionGroupController;
 use CuongDev\Larab\App\Http\Controllers\Api\ACL\RoleController;
 use CuongDev\Larab\App\Http\Controllers\Api\AuthController;
+use CuongDev\Larab\App\Http\Controllers\Api\SystemOptionController;
 use CuongDev\Larab\App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,9 +41,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         });
     });
 
-    /**
-     * ACL
-     */
     Route::group(['middleware' => ['auth.jwt', 'role:' . DefineRole::SUPER_ADMINISTRATOR . '|' . DefineRole::ADMINISTRATOR]], function () {
         /**
          * User
@@ -116,6 +114,22 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
                 ->name(DefineRoute::API_PERMISSION_UPDATE);
             Route::delete('/{id}', [PermissionController::class, 'delete'])
                 ->name(DefineRoute::API_PERMISSION_DELETE);
+        });
+
+        /**
+         * System Option
+         */
+        Route::group(['prefix' => 'system-options'], function () {
+            Route::get('/', [SystemOptionController::class, 'getList'])
+                ->name(DefineRoute::API_SYSTEM_OPTION_LIST);
+            Route::get('/{id}', [SystemOptionController::class, 'getOne'])
+                ->name(DefineRoute::API_SYSTEM_OPTION_DETAIL);
+            Route::post('/', [SystemOptionController::class, 'create'])
+                ->name(DefineRoute::API_SYSTEM_OPTION_CREATE);
+            Route::put('/{id}', [SystemOptionController::class, 'update'])
+                ->name(DefineRoute::API_SYSTEM_OPTION_UPDATE);
+            Route::delete('/{id}', [SystemOptionController::class, 'delete'])
+                ->name(DefineRoute::API_SYSTEM_OPTION_DELETE);
         });
     });
 });
