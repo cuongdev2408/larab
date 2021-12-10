@@ -148,11 +148,11 @@ abstract class ABaseRepository extends BaseRepository
     }
 
     /**
-     * @param Builder $model
+     * @param $model
      * @param array $params
      * @return Builder
      */
-    protected function extendGetList(Builder $model, array $params = []): Builder
+    protected function extendGetList($model, array $params = []): Builder
     {
         return $model;
     }
