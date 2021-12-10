@@ -74,11 +74,11 @@ class UserRepository extends ABaseRepository
     }
 
     /**
-     * @param $model
+     * @param Builder $model
      * @param array $params
      * @return Builder
      */
-    protected function extendGetList($model, array $params = []): Builder
+    protected function extendGetList(Builder $model, array $params = []): Builder
     {
         if (isset($params['roles']) && is_array($params['roles'])) {
             $model = $model->whereHas('roles', function ($query) use ($params) {
