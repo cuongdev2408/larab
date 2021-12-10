@@ -8,7 +8,7 @@ class Message
 
     const FAILURE = 'Thao tác thất bại!';
 
-    const SERVER_ERROR = 'Có lỗi xảy ra!';
+    const SERVER_ERROR = 'Có lỗi xảy ra. Vui lòng thử lại sau!';
 
     const NOT_FOUND = 'Lỗi không tìm thấy!';
 
