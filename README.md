@@ -55,22 +55,27 @@ I. Bắt đầu
 
 `https://github.com/jenssegers/laravel-mongodb#queues`
 
-- Thêm các Provider cần thiết vào `config/app.php`
+- Thêm các middleware vào app/Http/Kernel.php
 
 ```
-    /*
-     * Package Service Providers...
+    /**
+     * The application's route middleware groups.
+     *
+     * @var array
      */
-    CuongDev\Larab\LarabServiceProvider::class,
-    Spatie\Permission\PermissionServiceProvider::class,
-```
+    protected $middlewareGroups = [
+        'api' => [
+            // Additional middleware
+            \CuongDev\Larab\App\Http\Middleware\CheckRouteBlacklist::class,
+        ],
+    ];
 
-- Thêm JWT middleware vào app/Http/Kernel.php
-
-```
-  protected $routeMiddleware = [
+    protected $routeMiddleware = [
         // Additional middleware
         'auth.jwt' => \Tymon\JWTAuth\Http\Middleware\Authenticate::class, // JWT middleware
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
     ];
 ```
 
@@ -100,15 +105,15 @@ I. Bắt đầu
 ```
 ##### CuongDev Larab
 # Admin account
-SUPER_ADMIN_EMAIL=
-SUPER_ADMIN_PASSWORD=
+SUPER_ADMIN_EMAIL="admin@gmail.com"
+SUPER_ADMIN_PASSWORD=123456
 
 #Project Environment
 JWT_SECRET=
 JWT_PUBLIC_KEY=
 JWT_PRIVATE_KEY=
 JWT_PASSPHRASE=
-JWT_TTL=
+JWT_TTL=1440
 JWT_REFRESH_TTL=
 JWT_ALGO=
 JWT_LEEWAY=
