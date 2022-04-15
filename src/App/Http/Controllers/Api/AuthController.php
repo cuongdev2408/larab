@@ -134,6 +134,7 @@ class AuthController extends ABaseApiController
     {
         return $this->apiResponse->success([
             'user'         => auth()->user(),
+            'role'         => auth()->user()->roles()->pluck('display_name', 'name')->all(),
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 60,
