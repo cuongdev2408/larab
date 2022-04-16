@@ -32,11 +32,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         Route::group(['middleware' => 'auth.jwt'], function () {
             Route::post('logout', [AuthController::class, 'logout'])
                 ->name(DefineRoute::API_AUTH_LOGOUT);
-            Route::post('refresh', [AuthController::class, 'refresh'])
+            Route::get('refresh', [AuthController::class, 'refresh'])
                 ->name(DefineRoute::API_AUTH_REFRESH);
-            Route::post('me', [AuthController::class, 'me'])
+            Route::get('me', [AuthController::class, 'me'])
                 ->name(DefineRoute::API_AUTH_ME);
-            Route::post('update', [AuthController::class, 'update'])
+            Route::put('update', [AuthController::class, 'update'])
                 ->name(DefineRoute::API_AUTH_UPDATE);
         });
     });
