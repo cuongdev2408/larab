@@ -139,7 +139,8 @@ class AuthController extends ABaseApiController
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 60,
         ];
-        $data = $this->userService->processDataWithToken($data);
+        $optionalData = auth()->user()->optionalWithToken();
+        $data = array_merge($data, $optionalData);
 
         return $this->apiResponse->success($data, $message);
     }

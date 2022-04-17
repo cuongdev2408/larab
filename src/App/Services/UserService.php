@@ -120,13 +120,4 @@ class UserService extends ABaseService
 
         return parent::processParams($processedParams);
     }
-
-    /**
-     * @param array $data
-     * @return array
-     */
-    public function processDataWithToken(array $data): array
-    {
-        return $data;
-    }
 }
