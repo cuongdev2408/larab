@@ -43,6 +43,25 @@ abstract class ABaseService
      * @param array $params
      * @return Result
      */
+    public function getAll(array $params = []): Result
+    {
+        $params['limit'] = isset($params['limit']) ? intval($params['limit']) : Constant::MAX_LIMIT;
+        $params['get_all'] = true;
+        $params = $this->processParams($params);
+
+        try {
+            $data = $this->baseRepository->getList($params);
+
+            return $this->result->successResult($data);
+        } catch (Exception $e) {
+            return $this->result->failureResult(null, Message::FIND_FAILURE . $e->getMessage());
+        }
+    }
+
+    /**
+     * @param array $params
+     * @return Result
+     */
     public function findOne(array $params = []): Result
     {
         $params['limit'] = 1;

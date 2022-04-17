@@ -51,6 +51,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         Route::group(['prefix' => 'users'], function () {
             Route::get('/', [UserController::class, 'getList'])
                 ->name(DefineRoute::API_USER_LIST);
+            Route::get('/all', [UserController::class, 'getAll'])
+                ->name(DefineRoute::API_USER_LIST);
             Route::get('/find-one', [UserController::class, 'findOne'])
                 ->name(DefineRoute::API_USER_FIND_ONE);
             Route::get('/{id}', [UserController::class, 'getOne'])
@@ -74,6 +76,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         Route::group(['prefix' => 'roles'], function () {
             Route::get('/', [RoleController::class, 'getList'])
                 ->name(DefineRoute::API_ROLE_LIST);
+            Route::get('/all', [RoleController::class, 'getAll'])
+                ->name(DefineRoute::API_ROLE_LIST);
             Route::get('/{id}', [RoleController::class, 'getOne'])
                 ->name(DefineRoute::API_ROLE_DETAIL);
             Route::post('/', [RoleController::class, 'create'])
@@ -93,6 +97,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         Route::group(['prefix' => 'permission-groups'], function () {
             Route::get('/', [PermissionGroupController::class, 'getList'])
                 ->name(DefineRoute::API_PERMISSION_GROUP_LIST);
+            Route::get('/all', [PermissionGroupController::class, 'getAll'])
+                ->name(DefineRoute::API_PERMISSION_GROUP_LIST);
             Route::get('/{id}', [PermissionGroupController::class, 'getOne'])
                 ->name(DefineRoute::API_PERMISSION_GROUP_DETAIL);
             Route::post('/', [PermissionGroupController::class, 'create'])
@@ -109,6 +115,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         Route::group(['prefix' => 'permissions'], function () {
             Route::get('/', [PermissionController::class, 'getList'])
                 ->name(DefineRoute::API_PERMISSION_LIST);
+            Route::get('/all', [PermissionController::class, 'getAll'])
+                ->name(DefineRoute::API_PERMISSION_LIST);
             Route::get('/{id}', [PermissionController::class, 'getOne'])
                 ->name(DefineRoute::API_PERMISSION_DETAIL);
             Route::post('/', [PermissionController::class, 'create'])
@@ -124,6 +132,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
          */
         Route::group(['prefix' => 'system-options'], function () {
             Route::get('/', [SystemOptionController::class, 'getList'])
+                ->name(DefineRoute::API_SYSTEM_OPTION_LIST);
+            Route::get('/all', [SystemOptionController::class, 'getAll'])
                 ->name(DefineRoute::API_SYSTEM_OPTION_LIST);
             Route::get('/{id}', [SystemOptionController::class, 'getOne'])
                 ->name(DefineRoute::API_SYSTEM_OPTION_DETAIL);
