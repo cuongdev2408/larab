@@ -41,6 +41,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CuongDev
         });
     });
 
+    /**
+     * Administrator Management
+     */
     Route::group(['middleware' => ['auth.jwt', 'role:' . DefineRole::SUPER_ADMINISTRATOR . '|' . DefineRole::ADMINISTRATOR]], function () {
         /**
          * User

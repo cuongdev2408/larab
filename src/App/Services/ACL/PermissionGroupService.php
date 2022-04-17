@@ -42,14 +42,14 @@ class PermissionGroupService extends ABaseService
      * @param array $params
      * @return array
      */
-    protected function extendProcessParams(array $params = []): array
+    protected function processParams(array $params = []): array
     {
-        $processedParams = [];
+        $processedParams = $params;
 
         if (isset($params['permissions']) && !is_array($params['permissions']) && is_string($params['permissions'])) {
             $processedParams['permissions'] = array_map('trim', explode(',', $params['permissions']));
         }
 
-        return $processedParams;
+        return parent::processParams($processedParams);
     }
 }
