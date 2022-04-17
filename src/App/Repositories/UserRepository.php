@@ -92,6 +92,6 @@ class UserRepository extends ABaseRepository
             });
         }
 
-        return $model;
+        return parent::extendGetList($model, $params);
     }
 }

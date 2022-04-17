@@ -181,19 +181,6 @@ abstract class ABaseService
         $processedParams['get_all'] = $params['get_all'] ?? false;
         $processedParams['get_one'] = $params['get_one'] ?? false;
 
-        $processedParams = array_merge($processedParams, $this->extendProcessParams($params));
-
-        return $processedParams;
-    }
-
-    /**
-     * @param array $params
-     * @return array
-     */
-    protected function extendProcessParams(array $params = []): array
-    {
-        $processedParams = [];
-
         return $processedParams;
     }
 

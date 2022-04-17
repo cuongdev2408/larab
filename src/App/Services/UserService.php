@@ -106,9 +106,9 @@ class UserService extends ABaseService
      * @param array $params
      * @return array
      */
-    protected function extendProcessParams(array $params = []): array
+    protected function processParams(array $params = []): array
     {
-        $processedParams = [];
+        $processedParams = $params;
 
         if (isset($params['roles']) && !is_array($params['roles']) && is_string($params['roles'])) {
             $processedParams['roles'] = array_map('trim', explode(',', $params['roles']));
@@ -118,6 +118,6 @@ class UserService extends ABaseService
             $processedParams['permissions'] = array_map('trim', explode(',', $params['permissions']));
         }
 
-        return $processedParams;
+        return parent::processParams($processedParams);
     }
 }
