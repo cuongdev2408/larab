@@ -132,12 +132,15 @@ class AuthController extends ABaseApiController
      */
     protected function respondWithToken(string $token, $message = null): JsonResponse
     {
-        return $this->apiResponse->success([
+        $data = [
             'user'         => auth()->user(),
             'role'         => auth()->user()->roles()->pluck('display_name', 'name')->all(),
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 60,
-        ], $message);
+        ];
+        $data = $this->userService->processDataWithToken($data);
+
+        return $this->apiResponse->success($data, $message);
     }
 }
