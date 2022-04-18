@@ -19,6 +19,7 @@ class DefineRoute
      * User API
      */
     const API_USER_LIST = 'api.user.list';
+    const API_USER_LIST_ALL = 'api.user.list.all';
     const API_USER_FIND_ONE = 'api.user.find_one';
     const API_USER_DETAIL = 'api.user.detail';
     const API_USER_CREATE = 'api.user.create';
@@ -31,6 +32,7 @@ class DefineRoute
      * Role API
      */
     const API_ROLE_LIST = 'api.role.list';
+    const API_ROLE_LIST_ALL = 'api.role.list.all';
     const API_ROLE_DETAIL = 'api.role.detail';
     const API_ROLE_CREATE = 'api.role.create';
     const API_ROLE_UPDATE = 'api.role.update';
@@ -41,6 +43,7 @@ class DefineRoute
      * Permission Group API
      */
     const API_PERMISSION_GROUP_LIST = 'api.permission_group.list';
+    const API_PERMISSION_GROUP_LIST_ALL = 'api.permission_group.list.all';
     const API_PERMISSION_GROUP_DETAIL = 'api.permission_group.detail';
     const API_PERMISSION_GROUP_CREATE = 'api.permission_group.create';
     const API_PERMISSION_GROUP_UPDATE = 'api.permission_group.update';
@@ -50,6 +53,7 @@ class DefineRoute
      * Permission API
      */
     const API_PERMISSION_LIST = 'api.permission.list';
+    const API_PERMISSION_LIST_ALL = 'api.permission.list.all';
     const API_PERMISSION_DETAIL = 'api.permission.detail';
     const API_PERMISSION_CREATE = 'api.permission.create';
     const API_PERMISSION_UPDATE = 'api.permission.update';
@@ -59,6 +63,7 @@ class DefineRoute
      * System Option API
      */
     const API_SYSTEM_OPTION_LIST = 'api.system_option.list';
+    const API_SYSTEM_OPTION_LIST_ALL = 'api.system_option.list.all';
     const API_SYSTEM_OPTION_DETAIL = 'api.system_option.detail';
     const API_SYSTEM_OPTION_CREATE = 'api.system_option.create';
     const API_SYSTEM_OPTION_UPDATE = 'api.system_option.update';
