@@ -58,8 +58,8 @@ abstract class ABaseRepository extends BaseRepository
      */
     public function getList(array $params = [])
     {
-        /** @var Builder $model */
         $model = $this->getModel();
+        $model = $model->newQuery();
 
         if (count($this->getComparableFields()) > 0) {
             $model = $model->where(function ($query) use ($params) {
