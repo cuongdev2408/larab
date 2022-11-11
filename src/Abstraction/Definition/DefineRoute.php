@@ -82,8 +82,6 @@ class DefineRoute
         self::API_PERMISSION_UPDATE,
         self::API_PERMISSION_DELETE,
 
-        self::API_SYSTEM_OPTION_CREATE,
-        self::API_SYSTEM_OPTION_UPDATE,
         self::API_SYSTEM_OPTION_DELETE,
     ];
 
