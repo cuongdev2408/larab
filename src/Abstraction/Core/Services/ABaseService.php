@@ -7,6 +7,7 @@ use CuongDev\Larab\Abstraction\Definition\Constant;
 use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Object\Result;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 abstract class ABaseService
@@ -119,6 +120,36 @@ abstract class ABaseService
                 return $this->result->failureResult(null, Message::CREATE_FAILURE);
             }
         } catch (ValidatorException $e) {
+            return $this->result->failureResult(null, Message::CREATE_FAILURE . $e->getMessage());
+        }
+    }
+
+    /**
+     * @param array $data
+     * @return Result
+     */
+    public function createMulti(array $data): Result
+    {
+        try {
+            DB::beginTransaction();
+            $objectList = [];
+            foreach ($data as $index => $dataItem) {
+                $dataItem = $this->processDataBeforeSave($dataItem);
+
+                $object = $this->baseRepository->create($dataItem);
+
+                if ($object) {
+                    $objectList[] = $object;
+                } else {
+                    DB::rollBack();
+                    return $this->result->failureResult(null, Message::CREATE_FAILURE);
+                }
+            }
+            DB::commit();
+
+            return $this->result->successResult($objectList, Message::CREATE_SUCCESS);
+        } catch (ValidatorException $e) {
+            DB::rollBack();
             return $this->result->failureResult(null, Message::CREATE_FAILURE . $e->getMessage());
         }
     }

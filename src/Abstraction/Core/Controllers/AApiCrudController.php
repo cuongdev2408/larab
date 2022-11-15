@@ -79,6 +79,17 @@ abstract class AApiCrudController extends ABaseApiController
     }
 
     /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    protected function createMulti(Request $request): JsonResponse
+    {
+        $result = $this->baseService->createMulti($request->all());
+
+        return $this->apiResponse->respond($result);
+    }
+
+    /**
      * @param $id
      * @param Request $request
      * @return JsonResponse

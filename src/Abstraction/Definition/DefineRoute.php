@@ -23,6 +23,7 @@ class DefineRoute
     const API_USER_FIND_ONE = 'api.user.find_one';
     const API_USER_DETAIL = 'api.user.detail';
     const API_USER_CREATE = 'api.user.create';
+    const API_USER_CREATE_MULTI = 'api.user.create.multi';
     const API_USER_UPDATE = 'api.user.update';
     const API_USER_DELETE = 'api.user.delete';
     const API_USER_SYNC_ROLES = 'api.user.sync_roles';
@@ -35,6 +36,7 @@ class DefineRoute
     const API_ROLE_LIST_ALL = 'api.role.list.all';
     const API_ROLE_DETAIL = 'api.role.detail';
     const API_ROLE_CREATE = 'api.role.create';
+    const API_ROLE_CREATE_MULTI = 'api.role.create.multi';
     const API_ROLE_UPDATE = 'api.role.update';
     const API_ROLE_DELETE = 'api.role.delete';
     const API_ROLE_SYNC_PERMISSIONS = 'api.role.sync_permissions';
@@ -46,6 +48,7 @@ class DefineRoute
     const API_PERMISSION_GROUP_LIST_ALL = 'api.permission_group.list.all';
     const API_PERMISSION_GROUP_DETAIL = 'api.permission_group.detail';
     const API_PERMISSION_GROUP_CREATE = 'api.permission_group.create';
+    const API_PERMISSION_GROUP_CREATE_MULTI = 'api.permission_group.create.multi';
     const API_PERMISSION_GROUP_UPDATE = 'api.permission_group.update';
     const API_PERMISSION_GROUP_DELETE = 'api.permission_group.delete';
 
@@ -56,6 +59,7 @@ class DefineRoute
     const API_PERMISSION_LIST_ALL = 'api.permission.list.all';
     const API_PERMISSION_DETAIL = 'api.permission.detail';
     const API_PERMISSION_CREATE = 'api.permission.create';
+    const API_PERMISSION_CREATE_MULTI = 'api.permission.create.multi';
     const API_PERMISSION_UPDATE = 'api.permission.update';
     const API_PERMISSION_DELETE = 'api.permission.delete';
 
@@ -66,19 +70,23 @@ class DefineRoute
     const API_SYSTEM_OPTION_LIST_ALL = 'api.system_option.list.all';
     const API_SYSTEM_OPTION_DETAIL = 'api.system_option.detail';
     const API_SYSTEM_OPTION_CREATE = 'api.system_option.create';
+    const API_SYSTEM_OPTION_CREATE_MULTI = 'api.system_option.create.multi';
     const API_SYSTEM_OPTION_UPDATE = 'api.system_option.update';
     const API_SYSTEM_OPTION_DELETE = 'api.system_option.delete';
 
     private $blacklist = [
         self::API_ROLE_CREATE,
+        self::API_ROLE_CREATE_MULTI,
         self::API_ROLE_UPDATE,
         self::API_ROLE_DELETE,
 
         self::API_PERMISSION_GROUP_CREATE,
+        self::API_PERMISSION_GROUP_CREATE_MULTI,
         self::API_PERMISSION_GROUP_UPDATE,
         self::API_PERMISSION_GROUP_DELETE,
 
         self::API_PERMISSION_CREATE,
+        self::API_PERMISSION_CREATE_MULTI,
         self::API_PERMISSION_UPDATE,
         self::API_PERMISSION_DELETE,
 
