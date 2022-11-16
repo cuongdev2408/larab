@@ -34,6 +34,7 @@ class DefineRoute
      */
     const API_ROLE_LIST = 'api.role.list';
     const API_ROLE_LIST_ALL = 'api.role.list.all';
+    const API_ROLE_FIND_ONE = 'api.role.find_one';
     const API_ROLE_DETAIL = 'api.role.detail';
     const API_ROLE_CREATE = 'api.role.create';
     const API_ROLE_CREATE_MULTI = 'api.role.create.multi';
@@ -46,6 +47,7 @@ class DefineRoute
      */
     const API_PERMISSION_GROUP_LIST = 'api.permission_group.list';
     const API_PERMISSION_GROUP_LIST_ALL = 'api.permission_group.list.all';
+    const API_PERMISSION_GROUP_FIND_ONE = 'api.permission_group.find_one';
     const API_PERMISSION_GROUP_DETAIL = 'api.permission_group.detail';
     const API_PERMISSION_GROUP_CREATE = 'api.permission_group.create';
     const API_PERMISSION_GROUP_CREATE_MULTI = 'api.permission_group.create.multi';
@@ -57,6 +59,7 @@ class DefineRoute
      */
     const API_PERMISSION_LIST = 'api.permission.list';
     const API_PERMISSION_LIST_ALL = 'api.permission.list.all';
+    const API_PERMISSION_FIND_ONE = 'api.permission.find_one';
     const API_PERMISSION_DETAIL = 'api.permission.detail';
     const API_PERMISSION_CREATE = 'api.permission.create';
     const API_PERMISSION_CREATE_MULTI = 'api.permission.create.multi';
@@ -68,6 +71,7 @@ class DefineRoute
      */
     const API_SYSTEM_OPTION_LIST = 'api.system_option.list';
     const API_SYSTEM_OPTION_LIST_ALL = 'api.system_option.list.all';
+    const API_SYSTEM_OPTION_FIND_ONE = 'api.system_option.find_one';
     const API_SYSTEM_OPTION_DETAIL = 'api.system_option.detail';
     const API_SYSTEM_OPTION_CREATE = 'api.system_option.create';
     const API_SYSTEM_OPTION_CREATE_MULTI = 'api.system_option.create.multi';
