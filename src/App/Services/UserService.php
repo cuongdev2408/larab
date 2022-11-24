@@ -101,20 +101,26 @@ class UserService extends ABaseService
             $data['password'] = Hash::make($data['password']);
         }
 
-        if (isset($data['email'])) {
-            $validator = Validator::make($data, [
-                'email' => [
+        if (isset($data['email']) || isset($data['username'])) {
+            $rules = [];
+            $messages = [];
+            if (isset($data['email'])) {
+                $rules['email'] = [
                     'required',
                     Rule::unique('users')->ignore($id),
-                ],
-                'username' => [
+                ];
+                $messages['email.unique'] = 'Email này đã tồn tại! Vui lòng sử dụng email khác.';
+            }
+
+            if (isset($data['username'])) {
+                $rules['username'] = [
                     'required',
                     Rule::unique('users')->ignore($id),
-                ],
-            ], [
-                'email.unique' => 'Email này đã tồn tại! Vui lòng sử dụng email khác.',
-                'username.unique' => 'Tài khoản này đã tồn tại! Vui lòng sử dụng tài khoản khác.',
-            ]);
+                ];
+                $messages['username.unique'] = 'Tài khoản này đã tồn tại! Vui lòng sử dụng tài khoản khác.';
+            }
+
+            $validator = Validator::make($data, $rules, $messages);
 
             if ($validator->fails()) {
                 throw new \Exception($validator->errors()->first());
