@@ -107,8 +107,13 @@ class UserService extends ABaseService
                     'required',
                     Rule::unique('users')->ignore($id),
                 ],
+                'username' => [
+                    'required',
+                    Rule::unique('users')->ignore($id),
+                ],
             ], [
-                'unique' => 'Email :email này đã tồn tại! Vui lòng sử dụng email khác.'
+                'email.unique' => 'Email này đã tồn tại! Vui lòng sử dụng email khác.',
+                'username.unique' => 'Tài khoản này đã tồn tại! Vui lòng sử dụng tài khoản khác.',
             ]);
 
             if ($validator->fails()) {
