@@ -11,6 +11,8 @@ use CuongDev\Larab\App\Repositories\ACL\PermissionRepository;
 use CuongDev\Larab\App\Repositories\ACL\RoleRepository;
 use CuongDev\Larab\App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserService extends ABaseService
 {
@@ -93,10 +95,25 @@ class UserService extends ABaseService
      * @param array $data
      * @return array
      */
-    protected function processDataBeforeSave(array $data = []): array
+    protected function processDataBeforeSave(array $data = [], $id = null): array
     {
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
+        }
+
+        if (isset($data['email'])) {
+            $validator = Validator::make($data, [
+                'email' => [
+                    'required',
+                    Rule::unique('users')->ignore($id),
+                ],
+            ], [
+                'unique' => 'Email :email này đã tồn tại! Vui lòng sử dụng email khác.'
+            ]);
+
+            if ($validator->fails()) {
+                throw new \Exception($validator->errors()->first());
+            }
         }
 
         return parent::processDataBeforeSave($data);

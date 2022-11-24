@@ -8,7 +8,6 @@ use CuongDev\Larab\Abstraction\Definition\Message;
 use CuongDev\Larab\Abstraction\Object\Result;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Prettus\Validator\Exceptions\ValidatorException;
 
 abstract class ABaseService
 {
@@ -119,7 +118,7 @@ abstract class ABaseService
             } else {
                 return $this->result->failureResult(null, Message::CREATE_FAILURE);
             }
-        } catch (ValidatorException $e) {
+        } catch (Exception $e) {
             return $this->result->failureResult(null, Message::CREATE_FAILURE . $e->getMessage());
         }
     }
@@ -148,7 +147,7 @@ abstract class ABaseService
             DB::commit();
 
             return $this->result->successResult($objectList, Message::CREATE_SUCCESS);
-        } catch (ValidatorException $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return $this->result->failureResult(null, Message::CREATE_FAILURE . $e->getMessage());
         }
@@ -162,7 +161,7 @@ abstract class ABaseService
     public function update($id, array $data): Result
     {
         try {
-            $data = $this->processDataBeforeSave($data);
+            $data = $this->processDataBeforeSave($data, $id);
 
             $object = $this->baseRepository->update($data, $id);
 
@@ -171,7 +170,7 @@ abstract class ABaseService
             } else {
                 return $this->result->failureResult(null, Message::UPDATE_FAILURE);
             }
-        } catch (ValidatorException $e) {
+        } catch (Exception $e) {
             return $this->result->failureResult(null, Message::UPDATE_FAILURE . $e->getMessage());
         }
     }
