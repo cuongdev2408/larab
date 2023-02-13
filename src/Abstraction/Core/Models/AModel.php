@@ -5,6 +5,7 @@ namespace CuongDev\Larab\Abstraction\Core\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DateTimeInterface;
+use Illuminate\Support\Carbon;
 
 class AModel extends Model
 {
@@ -29,6 +30,6 @@ class AModel extends Model
      */
     protected function serializeDate(DateTimeInterface $date)
     {
-        return $date->format('Y-m-d H:i:s');
+        return Carbon::parse($date)->setTimezone(config('app.timezone'))->format('Y-m-d H:i:s');
     }
 }
