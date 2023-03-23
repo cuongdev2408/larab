@@ -31,10 +31,6 @@ class Constant
      */
     public static function getStatusText($status): string
     {
-        if (!isset(self::$statusText[$status])) {
-            return self::$statusText[$status];
-        }
-
-        return 'Không xác định';
+        return self::$statusText[$status] ?? 'Không xác định';
     }
 }
