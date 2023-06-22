@@ -89,18 +89,13 @@ abstract class ABaseRepository extends BaseRepository
                     $pos = strpos($field, '.');
                     if ($pos !== false) {
                         $fieldArr = explode('.', $field);
-                        if (!empty($fieldArr)) {
-                            if (count($fieldArr) == 2) {
-                                $query->orWhereHas($fieldArr[0], function ($query) use ($params, $fieldArr) {
-                                    $query->where($fieldArr[1], 'LIKE', '%' . $params['keyword'] . '%');
-                                });
-                            } elseif (count($fieldArr) == 3) {
-                                $query->orWhereHas($fieldArr[0], function ($query) use ($params, $fieldArr) {
-                                    $query->whereHas($fieldArr[1], function ($query) use ($params, $fieldArr) {
-                                        $query->where($fieldArr[2], 'LIKE', '%' . $params['keyword'] . '%');
-                                    });
-                                });
-                            }
+                        if (!empty($fieldArr) && count($fieldArr) >= 2) {
+                            $key = $fieldArr[$this->count($fieldArr) - 1];
+                            array_pop($fieldArr);
+                            $relation = implode('.', $fieldArr);
+                            $query->orWhereHas($relation, function ($query) use ($params, $key) {
+                                $query->where($key, 'LIKE', '%' . $params['keyword'] . '%');
+                            });
                         }
                     } else {
                         $query->orWhere($field, 'LIKE', '%' . $params['keyword'] . '%');
