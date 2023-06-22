@@ -86,7 +86,25 @@ abstract class ABaseRepository extends BaseRepository
             $model = $model->where(function ($query) use ($params) {
                 /** @var Builder $query */
                 foreach ($this->getSearchableFields() as $field) {
-                    $query->orWhere($field, 'LIKE', '%' . $params['keyword'] . '%');
+                    $pos = strpos($field, '.');
+                    if ($pos !== false) {
+                        $fieldArr = explode('.', $field);
+                        if (!empty($fieldArr)) {
+                            if (count($fieldArr) == 2) {
+                                $query->orWhereHas($fieldArr[0], function ($query) use ($params, $fieldArr) {
+                                    $query->where($fieldArr[1], 'LIKE', '%' . $params['keyword'] . '%');
+                                });
+                            } elseif (count($fieldArr) == 3) {
+                                $query->orWhereHas($fieldArr[0], function ($query) use ($params, $fieldArr) {
+                                    $query->whereHas($fieldArr[1], function ($query) use ($params, $fieldArr) {
+                                        $query->where($fieldArr[2], 'LIKE', '%' . $params['keyword'] . '%');
+                                    });
+                                });
+                            }
+                        }
+                    } else {
+                        $query->orWhere($field, 'LIKE', '%' . $params['keyword'] . '%');
+                    }
                 }
             });
         }
