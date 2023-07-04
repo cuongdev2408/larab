@@ -92,7 +92,8 @@ class AclSeeder extends Seeder
 
         $syncPermissions = [];
         foreach ($permissions as $name => $displayName) {
-            $groupName = strtok($name, '__');
+            $groupNameArr = explode('__', $name);
+            $groupName = !empty($groupNameArr) ? $groupNameArr[0] : false;
 
             if ($groupName && isset($syncPermissionGroups[$groupName])) {
                 $permissionGroup = $syncPermissionGroups[$groupName];
