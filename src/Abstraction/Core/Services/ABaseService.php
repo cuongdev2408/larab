@@ -227,6 +227,10 @@ abstract class ABaseService
             $processedParams['with'] = array_map('trim', explode(',', $params['with']));
         }
 
+        if (isset($params['status']) && !is_array($params['status']) && is_string($params['status'])) {
+            $processedParams['status'] = array_map('trim', explode(',', $params['status']));
+        }
+
         $processedParams['get_all'] = $params['get_all'] ?? false;
         $processedParams['get_one'] = $params['get_one'] ?? false;
 
