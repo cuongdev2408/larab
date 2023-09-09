@@ -6,6 +6,7 @@ use CuongDev\Larab\Abstraction\Core\Models\AAuthenticatableModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -16,6 +17,10 @@ class User extends AAuthenticatableModel implements JWTSubject
     use SoftDeletes;
 
     use HasRoles;
+
+    use HasPermissions;
+
+    protected $guard_name = 'api';
 
     protected $dates = ['deleted_at'];
 
