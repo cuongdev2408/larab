@@ -82,13 +82,13 @@ class UserRepository extends ABaseRepository
     {
         if (isset($params['roles']) && is_array($params['roles'])) {
             $model = $model->whereHas('roles', function ($query) use ($params) {
-                $query->whereIn('id', $params['roles']);
+                $query->whereIn('id', $params['roles'])->orWhereIn('name', $params['roles']);
             });
         }
 
         if (isset($params['permissions']) && is_array($params['permissions'])) {
             $model = $model->whereHas('permissions', function ($query) use ($params) {
-                $query->whereIn('id', $params['permissions']);
+                $query->whereIn('id', $params['permissions'])->orWhereIn('name', $params['permissions']);
             });
         }
 
